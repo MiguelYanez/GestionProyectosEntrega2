@@ -1,0 +1,44 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h3>Bienvenido {{user.nombres}}</h3>
+                    <h4>{{user.rut}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ul>
+  {{#each proyectos}}
+    <h3>{{nombre_proyecto}}</h3>
+  {{/each}}
+</ul>
+
+<div class="container">
+  <h2>Dark Striped Table</h2>
+  <p>Combine .table-dark and .table-striped to create a dark, striped table:</p>
+  <table class="table table-success table-striped table-success table-hover">
+    <thead>
+      <tr>
+      <th style="text-align: center;" scope="col">Id del proyecto</th>
+      <th style="text-align: center;" scope="col">Área del proyecto</th>
+      <th style="text-align: center;" scope="col">Nombre del proyecto</th>
+      <th style="text-align: center;" scope="col">Rut jefe proyecto</th>
+      <th style="text-align: center;" scope="col">Ver más</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each proyectos}}
+      <tr class="table-success">
+        <td>Value 1</td>
+        <td>Value 2</td>
+        <td>Value 3</td>
+        <td>Value 4</td>
+        <td style="text-align: center;" ><button type="button" class="btn btn-primary">Ver más</button></td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</div>

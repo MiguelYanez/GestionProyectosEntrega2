@@ -1,0 +1,134 @@
+body {
+  background: #eeeeee;
+  font-family: 'Andale Mono', monospace;
+}
+.navbar {
+  background: rgb(3, 0, 39) !important;
+}
+
+.nav-link {
+  color: #fff !important;
+}
+
+.masthead {
+  padding-top: 100px;
+  width: 100%;
+  height: 100%;
+}
+
+.index_card{
+width:  280px;
+margin: 0px 10px 0px 10px;
+background-color: white;
+}
+
+.index_row {
+justify-content: center;
+align-items: center;
+}
+
+.index_btn {
+width: 100%;
+height: 100%;
+background-color: white;
+display:grid;
+}
+.index_btn:hover {
+background-color: rgb(248, 248, 248);
+}
+.index_btn:hover > .index_label{
+color: blue;
+}
+
+.index_label {
+
+}
+.index_img {
+width: 55%;
+}
+.masthead h1 {
+  font-size: 4rem;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 992px) {
+  .masthead {
+    height: 100vh;
+  }
+  .masthead h1 {
+    font-size: 5.5rem;
+  }
+}
+
+.accordion {
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  margin-bottom: 1px;
+}
+
+.modal-body{
+  background-color: #eeeeee;
+}
+.modal-body span:only-of-type::after{
+  content: "No hay riesgos por el momento.";
+}
+
+.pan {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.response input[type='radio'] { 
+  transform: scale(2); 
+}
+
+.response{
+  margin-top: 30px;
+}
+
+.estrategia label {
+  display: block;
+}
+
+.estrategia{
+  display: flex;
+  justify-content:center;
+  flex-direction:row;
+}
+.estrategia .rad{
+  min-width: 150px;
+}
+.estrategia input{
+  position: relative;
+  left: 10px;
+}
+.logoimg{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  justify-content:center;
+}
+.center_img {
+  align-items: center;
+  justify-content:center;
+  background-color: red;
+  margin-top: -110px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.vcenter {
+  margin-top: 10%;
+  min-height: 100%; 
+  display: flex;
+  align-items: center;
+}

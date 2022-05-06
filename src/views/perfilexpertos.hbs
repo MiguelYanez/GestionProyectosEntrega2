@@ -1,0 +1,250 @@
+<div class="container p-4">
+  <div class="row">
+    <div class="col-md-4 mx-auto">
+      <div class="card text-center">
+        <div class="card-body">
+          <h3>Bienvenido {{user.nombres}}</h3>
+          <h4>{{user.rut}}</h4>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <h2 style="text-align:center">Mis proyectos enlazados</h2>
+  <table class="table bg-info table-striped table-hover text-light">
+    <thead>
+      <tr>
+        <th style="text-align: center;" scope="col">ID</th>
+        <th style="text-align: center;" scope="col">Área del proyecto</th>
+        <th style="text-align: center;" scope="col">Nombre del proyecto</th>
+        <th style="text-align: center;" scope="col">Nombre jefe proyecto</th>
+        <th style="text-align: center;" scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each proyectos_experto}}
+      <tr class="table-light text-dark">
+        <td>{{id_proyecto}}</td>
+        <td>{{area_proyecto}}</td>
+        <td>{{nombre_proyecto}}</td>
+        <td style="text-align: center;">{{nombres}} {{apellidos}}</td>
+        <td style="text-align: center;">
+          <button type="button" data-toggle="modal" data-target="#myModal{{id_proyecto}}" class="btn btn-info">Ver más</button>
+        </td>
+      </tr>
+      <!-- The Modal -->
+      <div class="modal fade" aria-hidden="true" id="myModal{{id_proyecto}}">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title center">Lista de riesgos</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+              <span></span> <!-- NO eliminar las etiquetas <span> -->
+                {{#each ../riesgos}}
+                  {{#ifEquals ../id_proyecto id_proyecto}}
+                  <span></span>
+                  <button class="accordion bg-info text-light font-weight-bold">{{../nombre_riesgo}}</button>
+                  <div class="pan card">
+                    <div class="card-body">
+                      <div class="container">
+                        <div class="row border">
+                          <div class="col-lg">Nombre del riesgo</div>
+                          <div class="col-lg">{{../nombre_riesgo}}</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">Tipo de riesgo</div>
+                          <div class="col-lg">{{../tipo_riesgo}}</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">Descripción</div>
+                          <div class="col-lg">{{../descripción_riesgo}}</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">Estrategia</div>
+                          <div class="col-lg">{{../tipo_estrategia_tomada}}</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">Impacto</div>
+                          <div class="col-lg">{{../impacto_riesgo}}</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">A_O</div>
+                          <div class="col-lg">{{../A_O}}</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">Probabilidad</div>
+                          <div class="col-lg">{{../probabilidad_riesgo}}%</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">Valoración</div>
+                          <div class="col-lg">{{../valoracion_riesgos}}</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">Magnitud</div>
+                          <div class="col-lg">{{../magnitud_riesgo}}</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">Valoración de consecuencia</div>
+                          <div class="col-lg">{{../valoracion_consecuencia_riesgo}}</div>
+                        </div>
+                      </div>
+                      <br>
+                      <div align="center">
+                        <a type="submit" class="btn btn-primary" onclick="return confirmationRiesgo()" href="/respuesta_riesgo/{{../id_proyecto}}/{{../id_riesgo}}">Responder a riesgo</a>
+                      </div>
+                      <br>
+                    </div>
+                  </div>
+                  {{/ifEquals}}
+                {{/each}}
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </tbody>
+    </tbody>
+  </table>
+</div>
+
+<div class="container">
+  <h2 style="text-align:center">Proyectos de la empresa con riesgos a solucionar</h2>
+  <table class="table bg-secondary table-striped table-hover text-light">
+    <thead>
+      <tr>
+        <th style="text-align: center;" scope="col">ID</th>
+        <th style="text-align: center;" scope="col">Área del proyecto</th>
+        <th style="text-align: center;" scope="col">Nombre del proyecto</th>
+        <th style="text-align: center;" scope="col">Nombre jefe proyecto</th>
+        <th style="text-align: center;" scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each proyectos}}
+      <tr class="table-light text-dark">
+        <td>{{id_proyecto}}</td>
+        <td>{{area_proyecto}}</td>
+        <td>{{nombre_proyecto}}</td>
+        <td style="text-align: center;">{{nombres}} {{apellidos}}</td>
+        <td style="text-align: center;">
+          <button type="submit" data-toggle="modal" data-target="#myModal{{id_proyecto}}" class="btn btn-secondary">Ver más</button>
+        </td>
+      </tr>
+      <!-- The Modal -->
+      <div class="modal fade" id="myModal{{id_proyecto}}">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Lista de riesgos</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <span></span> <!-- NO eliminar las etiquetas <span> -->
+                {{#each ../riesgos}}
+                  {{#ifEquals ../id_proyecto id_proyecto}}
+                  <span></span>
+                  <button class="accordion bg-secondary text-light font-weight-bold">{{../nombre_riesgo}}</button>
+                  <div class="pan card">
+                    <div class="card-body">
+                      <div class="container">
+                        <div class="row border">
+                          <div class="col-lg">Nombre del riesgo</div>
+                          <div class="col-lg">{{../nombre_riesgo}}</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">Tipo de riesgo</div>
+                          <div class="col-lg">{{../tipo_riesgo}}</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">Descripción</div>
+                          <div class="col-lg">{{../descripción_riesgo}}</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">Estrategia</div>
+                          <div class="col-lg">{{../tipo_estrategia_tomada}}</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">Impacto</div>
+                          <div class="col-lg">{{../impacto_riesgo}}</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">A_O</div>
+                          <div class="col-lg">{{../A_O}}</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">Probabilidad</div>
+                          <div class="col-lg">{{../probabilidad_riesgo}}%</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">Valoración</div>
+                          <div class="col-lg">{{../valoracion_riesgos}}</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">Magnitud</div>
+                          <div class="col-lg">{{../magnitud_riesgo}}</div>
+                        </div>
+                        <div class="row border">
+                          <div class="col-lg">Valoración de consecuencia</div>
+                          <div class="col-lg">{{../valoracion_consecuencia_riesgo}}</div>
+                        </div>
+                      </div>
+                      <br>
+                    </div>
+                  </div>
+                  {{/ifEquals}}
+                {{/each}}
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <a type="submit" class="btn btn-primary" onclick="return confirmationEnlace()" href="/enlazar/{{id_proyecto}}">Enlazar proyecto</a>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+
+
+<script>
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+      var panel = this.nextElementSibling;
+      if (panel.style.maxHeight) {
+        panel.style.maxHeight = null;
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
+    });
+  }
+</script>
+
+<script type="text/javascript">
+  function confirmationRiesgo() {
+    return confirm("¿Desea responder al riesgo?");
+  }
+  function confirmationEnlace() {
+    return confirm("¿Desea enlazar su proyecto?");
+  }
+</script>

@@ -1,0 +1,29 @@
+{{#if user}}
+<div class="container vcenter">
+        <img src="/img/logo4.png" class="logoimg" style="width: 400px;" alt="...">
+</div>
+{{else}}
+<main class="index">
+    <div class="container p-4">
+        <div class="row index_row mx-auto">
+                <div class="card index_card">
+                    <a href="/signinExpertos">
+                        <button type="button" class="btn index_btn">
+                            <img src="/img/expert.png" class="mx-auto my-auto  card-img-top index_img" alt="...">
+                            <label class="index_label">Expertos</label>
+                        </button>
+                    </a>
+                </div>
+                <div class="card index_card">
+                    <a href="/signinJefeProyecto">
+                        <button type="button" class="btn index_btn">
+                            <img src="/img/manager.png" class="mx-auto my-auto card-img-top index_img" alt="...">
+                            <label class="index_label">Jefe proyecto</label>
+                        </button>
+                    </a>
+                </div>
+        </div>
+        
+    </div>
+</main>
+{{/if}}

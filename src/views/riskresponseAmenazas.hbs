@@ -1,0 +1,206 @@
+<div class="response container mx-auto">
+    <div class="card text-center">
+        <div class="card-header">
+            <h4>Información del Riesgo</h4>
+        </div>
+        <div class="card-body">
+            <div class="container text-left">
+                <div class="row border bg-info text-light font-weight-bold justify-content-center">Proyecto</div>
+                <div class="row border">
+                    <div class="col-lg">Nombre del proyecto</div>
+                    <div class="col-lg">{{proyecto.[0].nombre_proyecto}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Area</div>
+                    <div class="col-lg">{{proyecto.[0].area_proyecto}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Jefe de Proyecto</div>
+                    <div class="col-lg">{{proyecto.[0].nombres}} {{proyecto.[0].apellidos}}</div>
+                </div>
+            </div>
+            <div class="container text-left">
+                <div class="row border bg-info text-light font-weight-bold justify-content-center">Riesgo</div>
+                <div class="row border">
+                    <div class="col-lg">Nombre del riesgo</div>
+                    <div class="col-lg">{{riesgo.[0].nombre_riesgo}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Tipo de riesgo</div>
+                    <div class="col-lg">{{riesgo.[0].tipo_riesgo}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Descripción</div>
+                    <div class="col-lg">{{riesgo.[0].descripción_riesgo}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Estrategia</div>
+                    <div id="strat" class="col-lg">{{riesgo.[0].tipo_estrategia_tomada}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Impacto</div>
+                    <div class="col-lg">{{riesgo.[0].impacto_riesgo}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">A_O</div>
+                    <div class="col-lg">{{riesgo.[0].A_O}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Probabilidad</div>
+                    <div class="col-lg">{{riesgo.[0].probabilidad_riesgo}}%</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Valoración</div>
+                    <div class="col-lg">{{riesgo.[0].valoracion_riesgos}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Magnitud</div>
+                    <div class="col-lg">{{riesgo.[0].magnitud_riesgo}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Valoración de consecuencia</div>
+                    <div class="col-lg">{{riesgo.[0].valoracion_consecuencia_riesgo}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="response container mx-auto">
+    <div class="card text-center">
+        <div class="card-header">
+            <h4>Responder al Riesgo</h4>
+        </div>
+        <div class="card-body">
+            <form action="/respuesta_riesgo/{{proyecto.[0].id_proyecto}}/{{riesgo.[0].id_riesgo}}" method="POST">
+                <div class="container estrategia row">
+                    <div class="form-group rad">
+                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="evitar" value="evitar" onclick="cambiar('evitar')">
+                        <label class="form-check-label" for="evitar">Evitar</label>
+                    </div>
+                    <div class="form-group rad">
+                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="aceptar" value="aceptar" onclick="cambiar('aceptar')">
+                        <label class="form-check-label" for="aceptar">Aceptar</label>
+                    </div>
+                    <div class="form-group rad">
+                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="transferir" value="transferir" onclick="cambiar('transferir')">
+                        <label class="form-check-label" for="transferir">Transferir</label>
+                    </div>
+                    <div class="form-group rad">
+                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="escalar" value="escalar" onclick="cambiar('escalar')">
+                        <label class="form-check-label" for="escalar">Escalar</label>
+                    </div>
+                    <div class="form-group rad">
+                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="mitigar" value="mitigar" onclick="cambiar('mitigar')">
+                        <label class="form-check-label" for="mitigar">Mitigar</label>
+                    </div>
+                </div>
+                <div id="cambio_area" class="form-group" style="display: none; visibility: hidden;">
+                    <label for="cambio">Justificación del cambio de estrategia</label>
+                    <textarea name="respuesta_cambio" class="form-control" id="cambio" rows="4"></textarea>
+                </div>
+
+<!--CASOS-->
+
+                <div name="impform" id="impevitar" style="display: none; visibility: hidden;" class="form-group"> 
+                    <h1>FORMULARIO EVITAR</h1>
+                </div>
+                <div name="impform" id="impaceptar" style="display: none; visibility: hidden;" class="form-group"> 
+                    <h1>FORMULARIO ACEPTAR</h1>
+                </div>
+                <div name="impform" id="imptransferir" style="display: none; visibility: hidden;" class="form-group"> 
+                    <h1>FORMULARIO TRANSFERIR</h1>
+                </div>
+                <div name="impform" id="impmitigar" style="display: none; visibility: hidden;" class="form-group"> 
+                    <h1>FORMULARIO MITIGAR</h1>
+                </div>
+                <div name="impform" id="impescalar" style="display: none; visibility: hidden;" class="form-group"> 
+                    <h1>FORMULARIO ESCALAR</h1>
+                </div>
+
+                <div class="form-group">
+                    <label for="imp">Implementación de la estrategia</label>
+                    <textarea name="implementacion_riesgo" class="form-control" id="imp" rows="7"></textarea>
+                </div>
+
+                <div class="form-group">
+                <button class="btn btn-success btn-block">
+                    Enviar
+                </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function cambiar(c){
+        var estrategia = document.getElementById("strat").textContent;
+        var imp = document.getElementsByName("impform");
+        var radios = document.getElementsByClassName("str");
+
+        console.log(imp)
+
+        for (let i = 0; i < imp.length; i++) {
+            id_imp = imp[i].id;
+            document.getElementById(id_imp).style.display = "none";
+            document.getElementById(id_imp).style.visibility = "hidden";
+        }
+
+        for (let i = 0; i < radios.length; i++) {
+            valor_str = radios[i].id;
+            if (radios[i].checked){
+                if (valor_str == "evitar"){
+                    document.getElementById("impevitar").style.display = "block";
+                    document.getElementById("impevitar").style.visibility = "visible";
+                }
+                else if(valor_str == "aceptar"){
+                    document.getElementById("impaceptar").style.display = "block";
+                    document.getElementById("impaceptar").style.visibility = "visible";
+                }
+                else if(valor_str == "transferir"){
+                    document.getElementById("imptransferir").style.display = "block";
+                    document.getElementById("imptransferir").style.visibility = "visible";
+                }
+                else if(valor_str == "mitigar"){
+                    document.getElementById("impmitigar").style.display = "block";
+                    document.getElementById("impmitigar").style.visibility = "visible";
+                }
+                else if(valor_str == "escalar"){
+                    document.getElementById("impescalar").style.display = "block";
+                    document.getElementById("impescalar").style.visibility = "visible";
+                }
+            }
+        }
+
+
+
+        var estrategia = document.getElementById("strat").textContent;
+        if(estrategia != c){
+            document.getElementById("cambio_area").style.display = "block";
+            document.getElementById("cambio_area").style.visibility = "visible";
+        }else{
+            document.getElementById("cambio_area").style.display = "none";
+            document.getElementById("cambio_area").style.visibility = "hidden";
+        }
+    }
+</script>
+
+<script>
+    function setEstrategia() {
+            var imp = document.getElementsByName("impform");
+            var estrategia = document.getElementById("strat").textContent;
+            var radios = document.getElementsByClassName("str");
+
+            document.getElementById("imp"+estrategia).style.display = "block";
+            document.getElementById("imp"+estrategia).style.visibility = "visible";
+
+            for (let i = 0; i < radios.length; i++) {
+                valor_str = radios[i].id;
+                if (valor_str == estrategia){
+                    radios[i].checked = true;
+                }
+            }
+            
+        }
+    window.onload = setEstrategia;
+</script>
