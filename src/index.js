@@ -8,12 +8,27 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const MySQLStore = require('express-mysql-session')(session);
 const bodyParser = require('body-parser');
-
+const multer = require('multer');
 const { database } = require('./keys');
 
 // Intializations
 const app = express();
 require('./lib/passport');
+
+const storage = multer.diskStorage({
+  destination: path.join(__dirname,'/plan_proyecto_modificado') ,
+  filename: (req, file, cb) => {
+       cb (null, file.originalname)
+  }
+})
+const upload = multer({ storage: storage })
+app.use(multer({
+  storage,
+  dest: path.join(__dirname,'/plan_proyecto_modificado')
+//    fileFilter: (req, file, cb)=>{
+//   const filetype = /jpeg|jpg|png|gif/;
+//   }
+}).any());
 
 // Settings
 app.set('port', process.env.PORT || 4000);

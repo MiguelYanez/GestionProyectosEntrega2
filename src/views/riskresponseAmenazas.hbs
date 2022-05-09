@@ -71,69 +71,129 @@
             <h4>Responder al Riesgo</h4>
         </div>
         <div class="card-body">
-            <form action="/respuesta_riesgo/{{proyecto.[0].id_proyecto}}/{{riesgo.[0].id_riesgo}}" method="POST">
+            
                 <div class="container estrategia row">
                     <div class="form-group rad">
-                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="evitar" value="evitar" onclick="cambiar('evitar')">
+                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="evitar"
+                            value="evitar" onclick="cambiar('evitar')">
                         <label class="form-check-label" for="evitar">Evitar</label>
                     </div>
                     <div class="form-group rad">
-                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="aceptar" value="aceptar" onclick="cambiar('aceptar')">
+                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="aceptar"
+                            value="aceptar" onclick="cambiar('aceptar')">
                         <label class="form-check-label" for="aceptar">Aceptar</label>
                     </div>
                     <div class="form-group rad">
-                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="transferir" value="transferir" onclick="cambiar('transferir')">
+                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="transferir"
+                            value="transferir" onclick="cambiar('transferir')">
                         <label class="form-check-label" for="transferir">Transferir</label>
                     </div>
                     <div class="form-group rad">
-                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="escalar" value="escalar" onclick="cambiar('escalar')">
+                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="escalar"
+                            value="escalar" onclick="cambiar('escalar')">
                         <label class="form-check-label" for="escalar">Escalar</label>
                     </div>
                     <div class="form-group rad">
-                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="mitigar" value="mitigar" onclick="cambiar('mitigar')">
+                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="mitigar"
+                            value="mitigar" onclick="cambiar('mitigar')">
                         <label class="form-check-label" for="mitigar">Mitigar</label>
                     </div>
                 </div>
+
+
+
+            
+
+            <!--CASOS-->
+            <form action="/formEvitar/{{proyecto.[0].id_proyecto}}/{{riesgo.[0].id_riesgo}}" enctype="multipart/form-data" method="POST">
+            <div class="disable-select" name="impform" id="impevitar" style="display: none; visibility: hidden;"
+                align="left">
+
                 <div id="cambio_area" class="form-group" style="display: none; visibility: hidden;">
-                    <label for="cambio">Justificación del cambio de estrategia</label>
-                    <textarea name="respuesta_cambio" class="form-control" id="cambio" rows="4"></textarea>
+                    <h4 style="text-align: center;">Justificacion del cambio de estrategia</h3>
+                        <textarea name="respuesta_cambio" class="form-control" id="cambio" rows="4"></textarea>
                 </div>
 
-<!--CASOS-->
-
-                <div name="impform" id="impevitar" style="display: none; visibility: hidden;" class="form-group"> 
-                    <h1>FORMULARIO EVITAR</h1>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="alcance_switch" onclick="evitar_alcance()">
+                    <label unselectable="on" class="custom-control-label" for="alcance_switch">Reducir alcances
+                        del proyecto</label>
                 </div>
-                <div name="impform" id="impaceptar" style="display: none; visibility: hidden;" class="form-group"> 
-                    <h1>FORMULARIO ACEPTAR</h1>
-                </div>
-                <div name="impform" id="imptransferir" style="display: none; visibility: hidden;" class="form-group"> 
-                    <h1>FORMULARIO TRANSFERIR</h1>
-                </div>
-                <div name="impform" id="impmitigar" style="display: none; visibility: hidden;" class="form-group"> 
-                    <h1>FORMULARIO MITIGAR</h1>
-                </div>
-                <div name="impform" id="impescalar" style="display: none; visibility: hidden;" class="form-group"> 
-                    <h1>FORMULARIO ESCALAR</h1>
-                </div>
-
-                <div class="form-group">
-                    <label for="imp">Implementación de la estrategia</label>
-                    <textarea name="implementacion_riesgo" class="form-control" id="imp" rows="7"></textarea>
+                <div id="alcance_form" class="form-group" style="display: none; visibility: hidden;">
+                    <h3>¿Cuales alcances usted cree que deberian no considerarse debido al riesgo?</h3>
+                   
+                   
+                     {{#each alcances}} 
+                    <input type="checkbox" id="{{alcances}}" name="{{alcances}}" value="{{alcances}}">
+                    <label for="{{alcances}}"> {{alcances}}</label><br>
+                    {{/each}}
+                   
+                 
+                    
                 </div>
 
-                <div class="form-group">
-                <button class="btn btn-success btn-block">
-                    Enviar
-                </button>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="plan_switch" onclick="evitar_plan()">
+                    <label class="custom-control-label" for="plan_switch">Modificar plan de proyecto</label>
                 </div>
-            </form>
+
+                <div id="plan_form" class="form-group" style="display: none; visibility: hidden;">
+                   
+                    <h3>Descargue el plan de proyecto vigente aqui</h3>
+                    {{#each plan}}
+                    <a class="btn btn-success" href="/descargar/{{plan_proyecto}}">Descargar Plan de proyecto</a>
+                    {{/each}}
+                    <h3>Suba las modificaciones que realizo a este plan de proyecto aqui</h3>
+                    
+                    <input type="file" name="plan_modificado">
+                    
+                       
+                </div>
+
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="cronograma_switch"
+                        onclick="evitar_cronograma()">
+                    <label class="custom-control-label" for="cronograma_switch">Extender cronograma proyecto</label>
+                </div>
+
+                <div id="cronograma_form" class="form-group" style="display: none; visibility: hidden;">
+                    <label> Fecha inicio del proyecto: {{cronograma.[0].inicio_proyecto}}</label> <br>
+                    <label> Fecha termino del proyecto {{cronograma.[0].termino_proyecto}}</label>  <br>
+                    <label> Indique aqui cuando deberia terminar el proyecto visto: </label>
+                     
+                    <input type="date" id="fecha_modificacion" name="fecha_modificacion" value="{{cronograma.[0].termino_proyecto}}" min="2018-01-01"
+                        max="2040-12-31"> <br>
+                       
+                </div>
+
+              <button class="btn btn-success btn-block">
+                        Enviar
+                    </button>
+                 </form>
+           
+            </div>
+
+            <div name="impform" id="impaceptar" style="display: none; visibility: hidden;" class="form-group">
+                <h1>FORMULARIO ACEPTAR</h1>
+            </div>
+            <div name="impform" id="imptransferir" style="display: none; visibility: hidden;" class="form-group">
+                <h1>FORMULARIO TRANSFERIR</h1>
+            </div>
+            <div name="impform" id="impmitigar" style="display: none; visibility: hidden;" class="form-group">
+                <h1>FORMULARIO MITIGAR</h1>
+            </div>
+            <div name="impform" id="impescalar" style="display: none; visibility: hidden;" class="form-group">
+                <h1>FORMULARIO ESCALAR</h1>
+            </div>
+
+
+
         </div>
     </div>
 </div>
 
 <script>
-    function cambiar(c){
+    function cambiar(c) {
         var estrategia = document.getElementById("strat").textContent;
         var imp = document.getElementsByName("impform");
         var radios = document.getElementsByClassName("str");
@@ -148,37 +208,34 @@
 
         for (let i = 0; i < radios.length; i++) {
             valor_str = radios[i].id;
-            if (radios[i].checked){
-                if (valor_str == "evitar"){
+            if (radios[i].checked) {
+                if (valor_str == "evitar") {
                     document.getElementById("impevitar").style.display = "block";
                     document.getElementById("impevitar").style.visibility = "visible";
                 }
-                else if(valor_str == "aceptar"){
+                else if (valor_str == "aceptar") {
                     document.getElementById("impaceptar").style.display = "block";
                     document.getElementById("impaceptar").style.visibility = "visible";
                 }
-                else if(valor_str == "transferir"){
+                else if (valor_str == "transferir") {
                     document.getElementById("imptransferir").style.display = "block";
                     document.getElementById("imptransferir").style.visibility = "visible";
                 }
-                else if(valor_str == "mitigar"){
+                else if (valor_str == "mitigar") {
                     document.getElementById("impmitigar").style.display = "block";
                     document.getElementById("impmitigar").style.visibility = "visible";
                 }
-                else if(valor_str == "escalar"){
+                else if (valor_str == "escalar") {
                     document.getElementById("impescalar").style.display = "block";
                     document.getElementById("impescalar").style.visibility = "visible";
                 }
             }
         }
-
-
-
         var estrategia = document.getElementById("strat").textContent;
-        if(estrategia != c){
+        if (estrategia != c) {
             document.getElementById("cambio_area").style.display = "block";
             document.getElementById("cambio_area").style.visibility = "visible";
-        }else{
+        } else {
             document.getElementById("cambio_area").style.display = "none";
             document.getElementById("cambio_area").style.visibility = "hidden";
         }
@@ -187,20 +244,62 @@
 
 <script>
     function setEstrategia() {
-            var imp = document.getElementsByName("impform");
-            var estrategia = document.getElementById("strat").textContent;
-            var radios = document.getElementsByClassName("str");
+        var imp = document.getElementsByName("impform");
+        var estrategia = document.getElementById("strat").textContent;
+        var radios = document.getElementsByClassName("str");
 
-            document.getElementById("imp"+estrategia).style.display = "block";
-            document.getElementById("imp"+estrategia).style.visibility = "visible";
+        document.getElementById("imp" + estrategia).style.display = "block";
+        document.getElementById("imp" + estrategia).style.visibility = "visible";
 
-            for (let i = 0; i < radios.length; i++) {
-                valor_str = radios[i].id;
-                if (valor_str == estrategia){
-                    radios[i].checked = true;
-                }
+        for (let i = 0; i < radios.length; i++) {
+            valor_str = radios[i].id;
+            if (valor_str == estrategia) {
+                radios[i].checked = true;
             }
-            
         }
+
+    }
     window.onload = setEstrategia;
+</script>
+
+<script>
+
+    function evitar_alcance() {
+        alcance_switch = document.getElementById("alcance_switch").checked;
+        if (alcance_switch) {
+            document.getElementById("alcance_form").style.display = "block";
+            document.getElementById("alcance_form").style.visibility = "visible";
+        } else {
+            document.getElementById("alcance_form").style.display = "none";
+            document.getElementById("alcance_form").style.visibility = "hidden";
+        }
+    }
+    function evitar_plan() {
+        plan_switch = document.getElementById("plan_switch").checked;
+        if (plan_switch) {
+            document.getElementById("plan_form").style.display = "block";
+            document.getElementById("plan_form").style.visibility = "visible";
+        } else {
+            document.getElementById("plan_form").style.display = "none";
+            document.getElementById("plan_form").style.visibility = "hidden";
+        }
+    }
+    function evitar_cronograma() {
+        cronograma_switch = document.getElementById("cronograma_switch").checked;
+        if (cronograma_switch) {
+            document.getElementById("cronograma_form").style.display = "block";
+            document.getElementById("cronograma_form").style.visibility = "visible";
+        } else {
+            document.getElementById("cronograma_form").style.display = "none";
+            document.getElementById("cronograma_form").style.visibility = "hidden";
+        }
+    }
+
+    function descargar(nombre) {
+        if (confirm("¿Desea descargar el plan de proyecto vigente de este proyecto?")) {
+            window.open(href = '/descargar/' + nombre);
+        } else {
+            alert("Archivo no descargado");
+        }
+    }
 </script>
