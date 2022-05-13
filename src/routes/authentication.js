@@ -289,5 +289,98 @@ router.post('/formEvitar/:id_proyecto/:id_riesgo', async function(req,res){
 }
 });
 
+router.post('/formMitigar/:id_proyecto/:id_riesgo', async function(req,res){
+console.log(req.body)
+var nombre_estrategia = "mitigar"
+const rut_experto = req.user.rut;
+const {id_proyecto} = req.params;
+const {id_riesgo} = req.params;
+var vinculos_provocante=false;
+var respuesta_cambio = "";
+var vinculos_prov = "";
+if(req.body.vinculos_provocante===undefined){
+  vinculos_prov="No";
+}
 
+if(vinculos_prov=="Si"){
+  vinculos_provocante=true;
+}
+newReply0 = {
+  respuesta_cambio,
+  rut_experto,
+  nombre_estrategia,
+  id_riesgo
+}
+
+await pool.query('INSERT INTO respuesta_riesgo SET ?', newReply0);
+
+var id = await pool.query('select MAX(id_solicitud) as id from respuesta_riesgo');
+console.log(id)
+var id_solicitud = id[0].id;
+var rrhh = req.body.rrhh;
+var area_dedica = req.body.area_dedica;
+var tiempo_provisorio = req.body.tiempo_provisorio;
+var herramientas = req.body.herramientas;
+var proveedor = req.body.proveedor;
+var rut = rut_experto;
+newReply1 = {
+  id_solicitud,
+  rut,
+  rrhh,
+  area_dedica,
+  tiempo_provisorio,
+  herramientas,
+  vinculos_provocante,
+  proveedor
+}
+
+await pool.query('INSERT INTO formulario_mitigar SET ?', newReply1);
+
+
+var id_form = await pool.query ('SELECT MAX(id_formulario_mitigar) AS id FROM formulario_mitigar');
+var id_formulario_mitigar = id_form[0].id
+var factor = "";
+
+if(req.body.factor1!==undefined){
+  factor = req.body.factor1;
+  newReply2 = {
+    id_formulario_mitigar,
+    rut,
+    factor
+  }
+  await pool.query('INSERT INTO respuesta_factores SET ?', newReply2);
+}
+
+if(req.body.factor2!==undefined){
+  factor = req.body.factor2;
+  newReply3 = {
+    id_formulario_mitigar,
+    rut,
+    factor
+  }
+  await pool.query('INSERT INTO respuesta_factores SET ?', newReply3);
+}
+
+if(req.body.factor3!==undefined){
+  factor = req.body.factor3;
+  newReply4 = {
+    id_formulario_mitigar,
+    rut,
+    factor
+  }
+  await pool.query('INSERT INTO respuesta_factores SET ?', newReply4);
+}
+
+if(req.body.factor4!==undefined){
+  factor = req.body.factor4;
+  newReply5 = {
+    id_formulario_mitigar,
+    rut,
+    factor
+  }
+  await pool.query('INSERT INTO respuesta_factores SET ?', newReply5);
+}
+
+res.redirect('/perfilExpertos')
+});
 module.exports = router;
