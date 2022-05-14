@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-05-2022 a las 00:05:47
+-- Tiempo de generación: 13-05-2022 a las 06:01:27
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.1
 
@@ -92,16 +92,40 @@ CREATE TABLE `aceptar_activo` (
 
 CREATE TABLE `alcances` (
   `id_proyecto` int(11) NOT NULL,
-  `alcances` text DEFAULT NULL
+  `alcances` text DEFAULT NULL,
+  `id_alcance` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `alcances`
 --
 
-INSERT INTO `alcances` (`id_proyecto`, `alcances`) VALUES
-(9, 'alcance 1'),
-(9, 'alcance 2');
+INSERT INTO `alcances` (`id_proyecto`, `alcances`, `id_alcance`) VALUES
+(9, 'alcance 2 ', 2),
+(9, 'alcance3', 3),
+(9, 'alcance 4', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `alcance_respuesta`
+--
+
+CREATE TABLE `alcance_respuesta` (
+  `id_proyecto` int(11) NOT NULL,
+  `rut_experto` varchar(12) DEFAULT NULL,
+  `id_alcance` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `alcance_respuesta`
+--
+
+INSERT INTO `alcance_respuesta` (`id_proyecto`, `rut_experto`, `id_alcance`) VALUES
+(9, '20.271.137-5', 2),
+(9, '20.271.137-5', 3),
+(9, '20.271.137-5', 2),
+(9, '20.271.137-5', 2);
 
 -- --------------------------------------------------------
 
@@ -111,8 +135,16 @@ INSERT INTO `alcances` (`id_proyecto`, `alcances`) VALUES
 
 CREATE TABLE `cronograma_proyecto` (
   `id_proyecto` int(11) NOT NULL,
-  `cronograma` text DEFAULT NULL
+  `inicio_proyecto` date DEFAULT NULL,
+  `termino_proyecto` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `cronograma_proyecto`
+--
+
+INSERT INTO `cronograma_proyecto` (`id_proyecto`, `inicio_proyecto`, `termino_proyecto`) VALUES
+(9, '2022-05-05', '2022-06-22');
 
 -- --------------------------------------------------------
 
@@ -290,6 +322,31 @@ CREATE TABLE `formulario_mejorar` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `formulario_mitigar`
+--
+
+CREATE TABLE `formulario_mitigar` (
+  `id_formulario_mitigar` int(11) NOT NULL,
+  `id_solicitud` int(11) NOT NULL,
+  `rut` varchar(12) DEFAULT NULL,
+  `rrhh` varchar(150) DEFAULT NULL,
+  `area_dedica` varchar(200) DEFAULT NULL,
+  `tiempo_provisorio` text DEFAULT NULL,
+  `herramientas` text DEFAULT NULL,
+  `vinculos_provocante` tinyint(1) DEFAULT NULL,
+  `proveedor` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `formulario_mitigar`
+--
+
+INSERT INTO `formulario_mitigar` (`id_formulario_mitigar`, `id_solicitud`, `rut`, `rrhh`, `area_dedica`, `tiempo_provisorio`, `herramientas`, `vinculos_provocante`, `proveedor`) VALUES
+(1, 22, '20.271.137-5', 'Roberto Vivar', 'Trabajo social', 'hfhfggfh', 'gfdhgfgfhgfh', 0, 'Rodrigo Salazar');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `jefe_proyecto`
 --
 
@@ -310,6 +367,26 @@ INSERT INTO `jefe_proyecto` (`rut`, `titulo`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `modificacion_cronograma`
+--
+
+CREATE TABLE `modificacion_cronograma` (
+  `id_proyecto` int(11) NOT NULL,
+  `rut_experto` varchar(12) DEFAULT NULL,
+  `fecha_modificacion` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `modificacion_cronograma`
+--
+
+INSERT INTO `modificacion_cronograma` (`id_proyecto`, `rut_experto`, `fecha_modificacion`) VALUES
+(9, '20.271.137-5', '2022-06-22'),
+(9, '20.271.137-5', '2024-06-22');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `plan_proyecto`
 --
 
@@ -317,6 +394,32 @@ CREATE TABLE `plan_proyecto` (
   `id_proyecto` int(11) NOT NULL,
   `plan_proyecto` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `plan_proyecto`
+--
+
+INSERT INTO `plan_proyecto` (`id_proyecto`, `plan_proyecto`) VALUES
+(9, 'project_management_plan_template.docx\r\n');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `plan_proyecto_modificado`
+--
+
+CREATE TABLE `plan_proyecto_modificado` (
+  `id_proyecto` int(11) NOT NULL,
+  `rut_experto` varchar(12) DEFAULT NULL,
+  `plan_proyecto_modificado` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `plan_proyecto_modificado`
+--
+
+INSERT INTO `plan_proyecto_modificado` (`id_proyecto`, `rut_experto`, `plan_proyecto_modificado`) VALUES
+(9, '20.271.137-5', 'project_management_plan_template (2).docx');
 
 -- --------------------------------------------------------
 
@@ -328,17 +431,18 @@ CREATE TABLE `proyecto` (
   `id_proyecto` int(11) NOT NULL,
   `area_proyecto` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nombre_proyecto` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `rut_jp` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL
+  `rut_jp` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estrategia_proyecto` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `proyecto`
 --
 
-INSERT INTO `proyecto` (`id_proyecto`, `area_proyecto`, `nombre_proyecto`, `rut_jp`) VALUES
-(9, 'Social', 'Plan de prevencion social del delito', '19.181.288-3'),
-(10, 'Informatica', 'Servidor Cachagua', '6.666.666-2'),
-(11, 'Climatico', 'Viviendas sociales y tornados', '19.181.288-3');
+INSERT INTO `proyecto` (`id_proyecto`, `area_proyecto`, `nombre_proyecto`, `rut_jp`, `estrategia_proyecto`) VALUES
+(9, 'Social', 'Plan de prevencion social del delito', '19.181.288-3', 'Trabajar directamente todos los dias con el personal adecuado'),
+(10, 'Informatica', 'Servidor Cachagua', '6.666.666-2', NULL),
+(11, 'Climatico', 'Viviendas sociales y tornados', '19.181.288-3', NULL);
 
 -- --------------------------------------------------------
 
@@ -362,6 +466,27 @@ INSERT INTO `proyecto_experto_revisa` (`rut_experto`, `id_proyecto`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `respuesta_factores`
+--
+
+CREATE TABLE `respuesta_factores` (
+  `id_respuesta_factor` int(11) NOT NULL,
+  `id_formulario_mitigar` int(11) NOT NULL,
+  `rut` varchar(12) DEFAULT NULL,
+  `factor` varchar(400) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `respuesta_factores`
+--
+
+INSERT INTO `respuesta_factores` (`id_respuesta_factor`, `id_formulario_mitigar`, `rut`, `factor`) VALUES
+(1, 1, '20.271.137-5', 'Siempre se tiene predestinado trabajar 40 horas a la semana'),
+(2, 1, '20.271.137-5', 'Nuestra labor es trabajar por y para el mundo');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `respuesta_riesgo`
 --
 
@@ -378,7 +503,27 @@ CREATE TABLE `respuesta_riesgo` (
 --
 
 INSERT INTO `respuesta_riesgo` (`id_solicitud`, `respuesta_cambio`, `rut_experto`, `nombre_estrategia`, `id_riesgo`) VALUES
-(2, 'No se gestiona bien', '20.271.137-5', 'evitar', 11);
+(2, 'No se gestiona bien', '20.271.137-5', 'evitar', 11),
+(3, 'dfgfddfg', '20.271.137-5', 'evitar', 12),
+(4, 'dfgdggdf', '20.271.137-5', 'evitar', 12),
+(5, 'dgfdgfdgfd', '20.271.137-5', 'evitar', 12),
+(6, 'fgfddgf', '20.271.137-5', 'evitar', 12),
+(7, 'fgnhgf', '20.271.137-5', 'evitar', 12),
+(8, 'dffg', '20.271.137-5', 'evitar', 12),
+(9, 'fggfhhgf', '20.271.137-5', 'evitar', 12),
+(10, '', '20.271.137-5', 'evitar', 12),
+(11, 'assadasd', '20.271.137-5', 'evitar', 12),
+(12, 'asdasd', '20.271.137-5', 'evitar', 12),
+(13, 'ggfghfdgf', '20.271.137-5', 'evitar', 12),
+(14, 'dfgfdg', '20.271.137-5', 'evitar', 12),
+(15, 'asdad', '20.271.137-5', 'evitar', 12),
+(16, 'dfdggfd', '20.271.137-5', 'evitar', 12),
+(17, 'fdgfdggfd', '20.271.137-5', 'evitar', 12),
+(18, '', '20.271.137-5', 'mitigar', 12),
+(19, '', '20.271.137-5', 'mitigar', 12),
+(20, '', '20.271.137-5', 'mitigar', 12),
+(21, '', '20.271.137-5', 'mitigar', 12),
+(22, '', '20.271.137-5', 'mitigar', 12);
 
 -- --------------------------------------------------------
 
@@ -407,10 +552,32 @@ CREATE TABLE `riesgos` (
 --
 
 INSERT INTO `riesgos` (`id_riesgo`, `id_proyecto`, `nombre_riesgo`, `tipo_riesgo`, `descripción_riesgo`, `tipo_estrategia_tomada`, `impacto_riesgo`, `A_O`, `probabilidad_riesgo`, `valoracion_riesgos`, `magnitud_riesgo`, `valoracion_consecuencia_riesgo`, `solucion_planteada`) VALUES
-(11, 9, 'Riesgo en la via publica', 'personal', 'Hay una alta chance de que le puedan robar a la persona que va caminando por la calle.', 'aceptar', 'alto', 'amenaza', 75, 'moderadamente critico', 5, 'alto', 'Solo aceptamos el riesgo por que no hay muchas alternativas que se quieran tomar con este tipo de actos'),
+(11, 9, 'Riesgo en la via publica', 'personal', 'Hay una alta chance de que le puedan robar a la persona que va caminando por la calle.', 'aceptar', 'alto', 'oportunidad', 75, 'moderadamente critico', 5, 'alto', 'Solo aceptamos el riesgo por que no hay muchas alternativas que se quieran tomar con este tipo de actos'),
 (12, 9, 'Riesgo en la casa de uno', 'Casa', 'Hay una chance de que nos puedan robar en la casa', 'Sin estrategia previa', 'medio', 'amenaza', 30, 'aceptable', 2, 'alto', 'Poner rejas o tener un perrito bastara'),
 (13, 10, 'Problemas con el servidor', 'Climatico', 'No hay manutención y es posible que se queme el lugar', 'transferir/compartir', 'alto', 'amenaza', 80, 'critico', 9, 'alto', 'Abrir las ventanas cuanto antes'),
 (14, 10, 'Problemas con el servidor 2', 'Manutencion', 'Nos falta dinero para pagar la renta del servidor', 'aceptar', 'medio', 'neutral', 30, 'moderadamente critico', 3, 'medio', 'Pagar la cuota del servidor cuanto antes');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `session_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `expires` int(11) UNSIGNED NOT NULL,
+  `data` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `sessions`
+--
+
+INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
+('2X1oC9pfxdNl8PC2_Xr-oICDNgGmHDgP', 1652489423, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('NKlkO0AZQtW3ILfFy_hQchp7P_3piJ_7', 1652489425, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('OX8jHvT9HMgk0MNESIEBL3ZrO873k5SP', 1652489407, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
+('lMVFJQ5IsYsMDcM3W5qIrVjlFF_-KCJo', 1652500769, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{},\"passport\":{\"user\":\"20.271.137-5\"}}');
 
 --
 -- Índices para tablas volcadas
@@ -426,6 +593,13 @@ ALTER TABLE `aceptar_activo`
 -- Indices de la tabla `alcances`
 --
 ALTER TABLE `alcances`
+  ADD PRIMARY KEY (`id_alcance`),
+  ADD KEY `id_proyecto` (`id_proyecto`);
+
+--
+-- Indices de la tabla `alcance_respuesta`
+--
+ALTER TABLE `alcance_respuesta`
   ADD KEY `id_proyecto` (`id_proyecto`);
 
 --
@@ -489,6 +663,13 @@ ALTER TABLE `formulario_mejorar`
   ADD KEY `id_solicitud` (`id_solicitud`);
 
 --
+-- Indices de la tabla `formulario_mitigar`
+--
+ALTER TABLE `formulario_mitigar`
+  ADD PRIMARY KEY (`id_formulario_mitigar`),
+  ADD KEY `id_solicitud` (`id_solicitud`);
+
+--
 -- Indices de la tabla `jefe_proyecto`
 --
 ALTER TABLE `jefe_proyecto`
@@ -496,10 +677,22 @@ ALTER TABLE `jefe_proyecto`
   ADD KEY `rut` (`rut`);
 
 --
+-- Indices de la tabla `modificacion_cronograma`
+--
+ALTER TABLE `modificacion_cronograma`
+  ADD KEY `id_proyecto` (`id_proyecto`);
+
+--
 -- Indices de la tabla `plan_proyecto`
 --
 ALTER TABLE `plan_proyecto`
   ADD PRIMARY KEY (`id_proyecto`);
+
+--
+-- Indices de la tabla `plan_proyecto_modificado`
+--
+ALTER TABLE `plan_proyecto_modificado`
+  ADD KEY `id_proyecto` (`id_proyecto`);
 
 --
 -- Indices de la tabla `proyecto`
@@ -515,6 +708,13 @@ ALTER TABLE `proyecto_experto_revisa`
   ADD PRIMARY KEY (`rut_experto`,`id_proyecto`),
   ADD KEY `rut_experto` (`rut_experto`),
   ADD KEY `id_proyecto` (`id_proyecto`);
+
+--
+-- Indices de la tabla `respuesta_factores`
+--
+ALTER TABLE `respuesta_factores`
+  ADD PRIMARY KEY (`id_respuesta_factor`),
+  ADD KEY `id_formulario_mitigar` (`id_formulario_mitigar`);
 
 --
 -- Indices de la tabla `respuesta_riesgo`
@@ -533,8 +733,20 @@ ALTER TABLE `riesgos`
   ADD KEY `id_proyecto` (`id_proyecto`);
 
 --
+-- Indices de la tabla `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`session_id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `alcances`
+--
+ALTER TABLE `alcances`
+  MODIFY `id_alcance` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `formulario_aceptar`
@@ -567,16 +779,28 @@ ALTER TABLE `formulario_mejorar`
   MODIFY `id_formulario_mejorar` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `formulario_mitigar`
+--
+ALTER TABLE `formulario_mitigar`
+  MODIFY `id_formulario_mitigar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `proyecto`
 --
 ALTER TABLE `proyecto`
   MODIFY `id_proyecto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT de la tabla `respuesta_factores`
+--
+ALTER TABLE `respuesta_factores`
+  MODIFY `id_respuesta_factor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `respuesta_riesgo`
 --
 ALTER TABLE `respuesta_riesgo`
-  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `riesgos`
@@ -599,6 +823,12 @@ ALTER TABLE `aceptar_activo`
 --
 ALTER TABLE `alcances`
   ADD CONSTRAINT `alcances_ibfk_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id_proyecto`);
+
+--
+-- Filtros para la tabla `alcance_respuesta`
+--
+ALTER TABLE `alcance_respuesta`
+  ADD CONSTRAINT `alcance_respuesta_ibfk_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id_proyecto`);
 
 --
 -- Filtros para la tabla `cronograma_proyecto`
@@ -643,16 +873,34 @@ ALTER TABLE `formulario_mejorar`
   ADD CONSTRAINT `formulario_mejorar_ibfk_1` FOREIGN KEY (`id_solicitud`) REFERENCES `respuesta_riesgo` (`id_solicitud`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `formulario_mitigar`
+--
+ALTER TABLE `formulario_mitigar`
+  ADD CONSTRAINT `formulario_mitigar_ibfk_1` FOREIGN KEY (`id_solicitud`) REFERENCES `respuesta_riesgo` (`id_solicitud`);
+
+--
 -- Filtros para la tabla `jefe_proyecto`
 --
 ALTER TABLE `jefe_proyecto`
   ADD CONSTRAINT `jefe_proyecto_ibfk_1` FOREIGN KEY (`rut`) REFERENCES `cuenta` (`rut`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `modificacion_cronograma`
+--
+ALTER TABLE `modificacion_cronograma`
+  ADD CONSTRAINT `modificacion_cronograma_ibfk_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id_proyecto`);
+
+--
 -- Filtros para la tabla `plan_proyecto`
 --
 ALTER TABLE `plan_proyecto`
   ADD CONSTRAINT `plan_proyecto_ibfk_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id_proyecto`);
+
+--
+-- Filtros para la tabla `plan_proyecto_modificado`
+--
+ALTER TABLE `plan_proyecto_modificado`
+  ADD CONSTRAINT `plan_proyecto_modificado_ibfk_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id_proyecto`);
 
 --
 -- Filtros para la tabla `proyecto`
@@ -666,6 +914,12 @@ ALTER TABLE `proyecto`
 ALTER TABLE `proyecto_experto_revisa`
   ADD CONSTRAINT `proyecto_experto_revisa_ibfk_1` FOREIGN KEY (`rut_experto`) REFERENCES `experto` (`rut`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `proyecto_experto_revisa_ibfk_2` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id_proyecto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `respuesta_factores`
+--
+ALTER TABLE `respuesta_factores`
+  ADD CONSTRAINT `respuesta_factores_ibfk_1` FOREIGN KEY (`id_formulario_mitigar`) REFERENCES `formulario_mitigar` (`id_formulario_mitigar`);
 
 --
 -- Filtros para la tabla `respuesta_riesgo`
