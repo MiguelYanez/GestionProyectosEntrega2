@@ -290,7 +290,7 @@ router.post('/formEvitar/:id_proyecto/:id_riesgo', async function(req,res){
 });
 
 router.post('/formMitigar/:id_proyecto/:id_riesgo', async function(req,res){
-console.log(req.body)
+
 var nombre_estrategia = "mitigar"
 const rut_experto = req.user.rut;
 const {id_proyecto} = req.params;
@@ -315,7 +315,6 @@ newReply0 = {
 await pool.query('INSERT INTO respuesta_riesgo SET ?', newReply0);
 
 var id = await pool.query('select MAX(id_solicitud) as id from respuesta_riesgo');
-console.log(id)
 var id_solicitud = id[0].id;
 var rrhh = req.body.rrhh;
 var area_dedica = req.body.area_dedica;
@@ -383,4 +382,101 @@ if(req.body.factor4!==undefined){
 
 res.redirect('/perfilExpertos')
 });
+
+router.post('/formTransferir/:id_proyecto/:id_riesgo', async function(req,res){
+
+  var nombre_estrategia = "transferir"
+  const rut_experto = req.user.rut;
+  const {id_proyecto} = req.params;
+  const {id_riesgo} = req.params;
+ 
+  var respuesta_cambio = "";
+ 
+ 
+  newReply0 = {
+    respuesta_cambio,
+    rut_experto,
+    nombre_estrategia,
+    id_riesgo
+  }
+  
+  await pool.query('INSERT INTO respuesta_riesgo SET ?', newReply0);
+  
+  var id = await pool.query('select MAX(id_solicitud) as id from respuesta_riesgo');
+  var id_solicitud = id[0].id;
+  var orgaexterna = req.body.orgaexterna;
+  var orgainterna = req.body.orgainterna;
+  var transferenciaDinero = 0;
+ 
+  var persointerna = req.body.persointerna;
+  var persoexterna = req.body.persoexterna;
+  var transferenciaTiempo = "";
+  console.log(transferenciaTiempo)
+  if(req.body.orgaexterna!==undefined){
+   transferenciaDinero = parseInt(req.body.transferenciaDinero1)
+   transferenciaTiempo = req.body.transferenciaTiempo1;
+    newReply1 = {
+      id_solicitud,
+      rut_experto,
+      orgaexterna,
+      transferenciaTiempo,
+      orgainterna,
+      transferenciaDinero,
+      persointerna,
+      persoexterna
+    }
+    await pool.query('INSERT INTO formulario_transferir SET ?', newReply1);
+  } 
+  if(req.body.orgainterna!==undefined){
+  transferenciaDinero = 0
+   transferenciaTiempo = req.body.transferenciaTiempo1;
+    orgaexterna="";
+    transferenciaDinero=0;
+    persoexterna= "";
+    persointerna="";
+    newReply2 = {
+      id_solicitud,
+      rut_experto,
+      orgaexterna,
+      transferenciaTiempo,
+      orgainterna,
+      transferenciaDinero,
+      persointerna,
+      persoexterna
+    }
+    await pool.query('INSERT INTO formulario_transferir SET ?', newReply2);
+  } 
+  if(req.body.persoexterna!==undefined){
+    transferenciaDinero = parseInt(req.body.transferenciaDinero2)
+    transferenciaTiempo = req.body.transferenciaTiempo2;
+    newReply3 = {
+      id_solicitud,
+      rut_experto,
+      orgaexterna,
+      transferenciaTiempo,
+      orgainterna,
+      transferenciaDinero,
+      persointerna,
+      persoexterna
+    }
+    await pool.query('INSERT INTO formulario_transferir SET ?', newReply3);
+  } 
+  if(req.body.persointerna!==undefined){
+    transferenciaDinero = 0
+    transferenciaTiempo = req.body.transferenciaTiempo2;
+    newReply4 = {
+      id_solicitud,
+      rut_experto,
+      orgaexterna,
+      transferenciaTiempo,
+      orgainterna,
+      transferenciaDinero,
+      persointerna,
+      persoexterna
+    }
+    await pool.query('INSERT INTO formulario_transferir SET ?', newReply4);
+  }
+ 
+  res.redirect('/perfilExpertos')
+  });
 module.exports = router;

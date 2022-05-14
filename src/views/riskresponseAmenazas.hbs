@@ -179,105 +179,191 @@
                 <h1>FORMULARIO ACEPTAR</h1>
             </div>
             <div name="impform" id="imptransferir" style="display: none; visibility: hidden;" class="form-group">
-                <h1>FORMULARIO TRANSFERIR</h1>
+                <form action="/formTransferir/{{proyecto.[0].id_proyecto}}/{{riesgo.[0].id_riesgo}}" method="POST">
+                <h1>Transferir a:</h1>
+                <div align="left">
+                <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="orgaexterna"
+                            onclick="transferir_orgaexterna()">
+                        <label unselectable="on" class="custom-control-label" for="orgaexterna">Organización externa</label>
+                    </div>
+                <div id="orgaexterna_form" class="form-group" style="display: none; visibility: hidden;">
+                 <h4>Escoja la organización externa </h4>
+                        <select name="orgaexterna" class="form-select" style="max-width: 306px;">
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="Municipalidad de quintero">Municipalidad de quintero</option>
+                            <option value="Trabajo social de fuerzas mayores">Trabajo social de fuerzas mayores</option>
+                            <option value="Estados unidos de trabajos sociales">Estados unidos de trabajos sociales</option>
+                        </select>
+                 <h4>Costo de transferencia en dinero </h4>
+                        <input type="number" id="transferenciaDinero1" name="transferenciaDinero1" >
+                </div>
+                <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="orgainterna"
+                            onclick="transferir_orgainterna()">
+                        <label unselectable="on" class="custom-control-label" for="orgainterna">Organización interna</label>
+                    </div>
+                 <div id="orgainterna_form" class="form-group" style="display: none; visibility: hidden;">
+                        <h4>Escoja la organización interna </h4>
+                        <select name="orgainterna" class="form-select" style="max-width: 306px;">
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="Departamento de trabajo social">Departamento de trabajo social</option>
+                            <option value="Departamento de informática">Departamento de informática</option>
+                            <option value="Departamento de adultos mayores">Departamento de adultos mayores</option>
+                        </select>
+                        <h4>Costo de transferencia en tiempo </h4>
+                        <input type="text" id="transferenciaTiempo1" name="transferenciaTiempo1" >
+                </div>
+               <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="persointerna"
+                            onclick="transferir_persointerna()">
+                        <label unselectable="on" class="custom-control-label" for="persointerna">Persona interna</label>
+                    </div>
+                 <div id="persointerna_form" class="form-group" style="display: none; visibility: hidden;">
+                        <h4>Escoja la persona interna </h4>
+                        <select name="persointerna" class="form-select" style="max-width: 306px;">
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="Raul Gonzalez">Raul Gonzalez</option>
+                            <option value="Esteban Vivar">Esteban Vivar</option>
+                            <option value="Gonzalo Medina">Gonzalo Medina</option>
+                        </select>
+                        <h4>Costo de transferencia en tiempo </h4>
+                        <input type="type" id="transferenciaTiempo2" name="transferenciaTiempo2" >
+                </div>
+
+                <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="persoexterna"
+                            onclick="transferir_persoexterna()">
+                        <label unselectable="on" class="custom-control-label" for="persoexterna">Persona externa</label>
+                    </div>
+                <div id="persoexterna_form" class="form-group" style="display: none; visibility: hidden;">
+                        <h4>Escoja la persona externa </h4>
+                        <select name="persoexterna" class="form-select" style="max-width: 306px;">
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="John Doe">John Doe</option>
+                            <option value="Sebastian Perez">Sebastian Perez</option>
+                            <option value="Amalia Espinoza">Amalia Espinoza</option>
+                        </select>
+                        <h4>Costo de transferencia en dinero </h4>
+                        <input type="number" id="transferenciaDinero2" name="transferenciaDinero2" >
+                </div>
+                <button class="btn btn-success btn-block">
+                        Enviar
+                    </button>
+
+                </div>
+                </form>
+                
             </div>
             <div name="impform" id="impmitigar" style="display: none; visibility: hidden;" class="form-group"
                 align="left">
 
 
                 <h4>Minimizar el impacto del riesgo</h4>
-            <form action="/formMitigar/{{proyecto.[0].id_proyecto}}/{{riesgo.[0].id_riesgo}}" method="POST">
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="rrhh_switch" onclick="mitigar_rrhh()">
-                    <label unselectable="on" class="custom-control-label" for="rrhh_switch">Dedicar recursos humanos de
-                        reserva</label>
-                </div>
-                <div id="rrhh_form" class="form-group" style="display: none; visibility: hidden;">
-                    <h4> Seleccione a la persona adecuada para el riesgo</h4>
-                    <select name="rrhh" class="form-select" style="max-width: 306px;">
-                        <option value="" disabled selected>Seleccione</option>
-                        <option value="Miguel yanez">Miguel yanez</option>
-                        <option value="Sebastian medina">Sebastian medina</option>
-                        <option value="Roberto Vivar">Roberto Vivar</option>
-                    </select>
-                    <h4> Seleccione al area a la que se va a dedicar</h4>
-                    <select name="area_dedica" class="form-select" style="max-width: 306px;">
-                        <option value="" disabled selected>Seleccione</option>
-                        <option value="Informatica">Informatica</option>
-                        <option value="Trabajo social">Trabajo social</option>
-                        <option value="Gestion de proyectos informaticos">Gestion de proyectos informaticos</option>
-                    </select>
+                <form action="/formMitigar/{{proyecto.[0].id_proyecto}}/{{riesgo.[0].id_riesgo}}" method="POST">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="rrhh_switch" onclick="mitigar_rrhh()">
+                        <label unselectable="on" class="custom-control-label" for="rrhh_switch">Dedicar recursos humanos
+                            de
+                            reserva</label>
+                    </div>
+                    <div id="rrhh_form" class="form-group" style="display: none; visibility: hidden;">
+                        <h4> Seleccione a la persona adecuada para el riesgo</h4>
+                        <select name="rrhh" class="form-select" style="max-width: 306px;">
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="Miguel yanez">Miguel yanez</option>
+                            <option value="Sebastian medina">Sebastian medina</option>
+                            <option value="Roberto Vivar">Roberto Vivar</option>
+                        </select>
+                        <h4> Seleccione al area a la que se va a dedicar</h4>
+                        <select name="area_dedica" class="form-select" style="max-width: 306px;">
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="Informatica">Informatica</option>
+                            <option value="Trabajo social">Trabajo social</option>
+                            <option value="Gestion de proyectos informaticos">Gestion de proyectos informaticos</option>
+                        </select>
 
-                </div>
+                        
+                    </div>
 
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="tiempo_switch" onclick="mitigar_tiempo()">
-                    <label unselectable="on" class="custom-control-label" for="tiempo_switch">Dedicar tiempo
-                        provisorio</label>
-                </div>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="tiempo_switch"
+                            onclick="mitigar_tiempo()">
+                        <label unselectable="on" class="custom-control-label" for="tiempo_switch">Dedicar tiempo
+                            provisorio</label>
+                    </div>
 
-                <div id="tiempo_form" class="form-group" style="display: none; visibility: hidden;">
-                    <h4>¿Cuánto tiempo piensa que se deberia dedicar al riesgo?, escriba la razón y el tiempo a lo que
-                        se debe dedicar</h4>
-                    <textarea name="tiempo_provisorio" class="form-control" id="cambio" rows="4"></textarea>
-                </div>
+                    <div id="tiempo_form" class="form-group" style="display: none; visibility: hidden;">
+                        <h4>¿Cuánto tiempo piensa que se deberia dedicar al riesgo?, escriba la razón y el tiempo a lo
+                            que
+                            se debe dedicar</h4>
+                        <textarea name="tiempo_provisorio" class="form-control" id="cambio" rows="4"></textarea>
+                    </div>
 
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="herramientas_switch"
-                        onclick="mitigar_herramientas()">
-                    <label unselectable="on" class="custom-control-label" for="herramientas_switch">Adoptar nuevas
-                        herramientas</label>
-                </div>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="herramientas_switch"
+                            onclick="mitigar_herramientas()">
+                        <label unselectable="on" class="custom-control-label" for="herramientas_switch">Adoptar nuevas
+                            herramientas</label>
+                    </div>
 
-                <div id="herramientas_form" class="form-group" style="display: none; visibility: hidden;">
-                    <h4>Escriba las herramientas que se deben usar para minimizar el impacto del riesgo</h4>
-                    <textarea name="herramientas" class="form-control" id="cambio" rows="4"></textarea>
-                </div>
-                <div class="custom-control custom-switch">
-                        <label ><input type="checkbox" id="vinculos_provocante" name="vinculos_provocante" value="Si"> Reducir vinculos con la
-                        provocante del riesgo</label><br>
-                </div>
-            
-                <h4>Minimizar probabilidad del riesgo</h4>
-                
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="proveedor_switch" onclick="mitigar_proveedor()">
-                    <label unselectable="on" class="custom-control-label" for="proveedor_switch">Cambiar de proveedor</label>
-                </div>
+                    <div id="herramientas_form" class="form-group" style="display: none; visibility: hidden;">
+                        <h4>Escriba las herramientas que se deben usar para minimizar el impacto del riesgo</h4>
+                        <textarea name="herramientas" class="form-control" id="cambio" rows="4"></textarea>
+                    </div>
+                    <div class="custom-control custom-switch">
+                        <label><input type="checkbox" id="vinculos_provocante" name="vinculos_provocante" value="Si">
+                            Reducir vinculos con la
+                            provocante del riesgo</label><br>
+                    </div>
 
-                <div id="proveedor_form" class="form-group" style="display: none; visibility: hidden;">
-                    <h4>Proveedor actual: </h4>
-                    <h4>Escoja el proveedor que le convenga al proyecto y su riesgo</h4>
-                     <select name="proveedor" class="form-select" style="max-width: 306px;">
-                        <option value="" disabled selected>Seleccione</option>
-                        <option value="Daniel Azocar">Daniel Azocar</option>
-                        <option value="Rodrigo Salazar">Rodrigo Salazar</option>
-                        <option value="Ramón Gonzalez">Ramón Gonzalez</option>
-                    </select>
-                </div>
+                    <h4>Minimizar probabilidad del riesgo</h4>
 
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="factores_switch" onclick="mitigar_factores()">
-                    <label unselectable="on" class="custom-control-label" for="factores_switch">Eliminar factores de riesgo</label>
-                </div>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="proveedor_switch"
+                            onclick="mitigar_proveedor()">
+                        <label unselectable="on" class="custom-control-label" for="proveedor_switch">Cambiar de
+                            proveedor</label>
+                    </div>
 
-                <div id="factores_form" class="form-group" style="display: none; visibility: hidden;">
-                    <h3>¿Cuales factores usted cree que deberian no considerarse debido al riesgo?</h3>
+                    <div id="proveedor_form" class="form-group" style="display: none; visibility: hidden;">
+                        <h4>Proveedor actual: </h4>
+                        <h4>Escoja el proveedor que le convenga al proyecto y su riesgo</h4>
+                        <select name="proveedor" class="form-select" style="max-width: 306px;">
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="Daniel Azocar">Daniel Azocar</option>
+                            <option value="Rodrigo Salazar">Rodrigo Salazar</option>
+                            <option value="Ramón Gonzalez">Ramón Gonzalez</option>
+                        </select>
+                    </div>
 
-                        <input type="checkbox" id="factor1" name="factor1" value="Siempre se tiene predestinado trabajar 40 horas a la semana">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="factores_switch"
+                            onclick="mitigar_factores()">
+                        <label unselectable="on" class="custom-control-label" for="factores_switch">Eliminar factores de
+                            riesgo</label>
+                    </div>
+
+                    <div id="factores_form" class="form-group" style="display: none; visibility: hidden;">
+                        <h3>¿Cuales factores usted cree que deberian no considerarse debido al riesgo?</h3>
+
+                        <input type="checkbox" id="factor1" name="factor1"
+                            value="Siempre se tiene predestinado trabajar 40 horas a la semana">
                         <label for="factor1"> Siempre se tiene predestinado trabajar 40 horas a la semana</label><br>
-                        <input type="checkbox" id="factor2" name="factor2" value="Nuestra labor es trabajar por y para el mundo">
+                        <input type="checkbox" id="factor2" name="factor2"
+                            value="Nuestra labor es trabajar por y para el mundo">
                         <label for="factor2"> Nuestra labor es trabajar por y para el mundo</label><br>
-                        <input type="checkbox" id="factor3" name="factor3" value="Conocer mejor a la clientela en el trabajo social">
+                        <input type="checkbox" id="factor3" name="factor3"
+                            value="Conocer mejor a la clientela en el trabajo social">
                         <label for="factor3"> Conocer mejor a la clientela en el trabajo social</label><br>
                         <input type="checkbox" id="factor4" name="factor4" value="Votar por una salud mental positiva">
                         <label for="factor4"> Votar por una salud mental positiva</label><br>
-                        
-                </div>
+
+                    </div>
                     <button class="btn btn-success btn-block">
                         Enviar
                     </button>
-                    </form>
+                </form>
             </div>
             <div name="impform" id="impescalar" style="display: none; visibility: hidden;" class="form-group">
                 <h1>FORMULARIO ESCALAR</h1>
@@ -436,7 +522,7 @@
         }
     }
 
-      function mitigar_factores() {
+    function mitigar_factores() {
         factores_switch = document.getElementById("factores_switch").checked;
         if (factores_switch) {
             document.getElementById("factores_form").style.display = "block";
@@ -452,6 +538,49 @@
             window.open(href = '/descargar/' + nombre);
         } else {
             alert("Archivo no descargado");
+        }
+    }
+
+   
+
+    function transferir_orgainterna() {
+        orgainterna = document.getElementById("orgainterna").checked;
+        if (orgainterna) {
+            document.getElementById("orgainterna_form").style.display = "block";
+            document.getElementById("orgainterna_form").style.visibility = "visible";
+        } else {
+            document.getElementById("orgainterna_form").style.display = "none";
+            document.getElementById("orgainterna_form").style.visibility = "hidden";
+        }
+    }
+    function transferir_orgaexterna() {
+        orgaexterna = document.getElementById("orgaexterna").checked;
+        if (orgaexterna) {
+            document.getElementById("orgaexterna_form").style.display = "block";
+            document.getElementById("orgaexterna_form").style.visibility = "visible";
+        } else {
+            document.getElementById("orgaexterna_form").style.display = "none";
+            document.getElementById("orgaexterna_form").style.visibility = "hidden";
+        }
+    }
+    function transferir_persointerna() {
+        persointerna = document.getElementById("persointerna").checked;
+        if (persointerna) {
+            document.getElementById("persointerna_form").style.display = "block";
+            document.getElementById("persointerna_form").style.visibility = "visible";
+        } else {
+            document.getElementById("persointerna_form").style.display = "none";
+            document.getElementById("persointerna_form").style.visibility = "hidden";
+        }
+    }
+    function transferir_persoexterna() {
+        persoexterna = document.getElementById("persoexterna").checked;
+        if (persoexterna) {
+            document.getElementById("persoexterna_form").style.display = "block";
+            document.getElementById("persoexterna_form").style.visibility = "visible";
+        } else {
+            document.getElementById("persoexterna_form").style.display = "none";
+            document.getElementById("persoexterna_form").style.visibility = "hidden";
         }
     }
 </script>
