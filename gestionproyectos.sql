@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-05-2022 a las 06:01:27
+-- Tiempo de generación: 15-05-2022 a las 00:57:55
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.1
 
@@ -347,6 +347,38 @@ INSERT INTO `formulario_mitigar` (`id_formulario_mitigar`, `id_solicitud`, `rut`
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `formulario_transferir`
+--
+
+CREATE TABLE `formulario_transferir` (
+  `id_form_transferir` int(11) NOT NULL,
+  `id_solicitud` int(11) NOT NULL,
+  `rut_experto` varchar(12) DEFAULT NULL,
+  `orgaexterna` varchar(300) DEFAULT NULL,
+  `transferenciaTiempo` varchar(50) DEFAULT NULL,
+  `orgainterna` varchar(300) DEFAULT NULL,
+  `transferenciaDinero` int(11) DEFAULT NULL,
+  `persointerna` varchar(100) DEFAULT NULL,
+  `persoexterna` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `formulario_transferir`
+--
+
+INSERT INTO `formulario_transferir` (`id_form_transferir`, `id_solicitud`, `rut_experto`, `orgaexterna`, `transferenciaTiempo`, `orgainterna`, `transferenciaDinero`, `persointerna`, `persoexterna`) VALUES
+(1, 25, '20.271.137-5', 'Estados unidos de trabajos sociales', '', '', 23523, '', ''),
+(2, 32, '20.271.137-5', 'Trabajo social de fuerzas mayores', '', NULL, 2312, NULL, NULL),
+(3, 35, '20.271.137-5', 'Estados unidos de trabajos sociales', '', NULL, 13213, NULL, NULL),
+(4, 38, '20.271.137-5', 'Trabajo social de fuerzas mayores', '', NULL, 12312, NULL, NULL),
+(5, 40, '20.271.137-5', NULL, '14124', NULL, 0, 'Esteban Vivar', NULL),
+(6, 41, '20.271.137-5', NULL, '2 dias', NULL, 0, 'Esteban Vivar', NULL),
+(7, 42, '20.271.137-5', NULL, '', NULL, 310421, NULL, 'Amalia Espinoza'),
+(8, 43, '20.271.137-5', '', '2 dias', 'Departamento de adultos mayores', 0, '', '');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `jefe_proyecto`
 --
 
@@ -523,7 +555,28 @@ INSERT INTO `respuesta_riesgo` (`id_solicitud`, `respuesta_cambio`, `rut_experto
 (19, '', '20.271.137-5', 'mitigar', 12),
 (20, '', '20.271.137-5', 'mitigar', 12),
 (21, '', '20.271.137-5', 'mitigar', 12),
-(22, '', '20.271.137-5', 'mitigar', 12);
+(22, '', '20.271.137-5', 'mitigar', 12),
+(23, '', '20.271.137-5', 'transferir', 12),
+(24, '', '20.271.137-5', 'transferir', 12),
+(25, '', '20.271.137-5', 'transferir', 12),
+(26, '', '20.271.137-5', 'transferir', 12),
+(27, '', '20.271.137-5', 'transferir', 12),
+(28, '', '20.271.137-5', 'transferir', 12),
+(29, '', '20.271.137-5', 'transferir', 12),
+(30, '', '20.271.137-5', 'transferir', 12),
+(31, '', '20.271.137-5', 'transferir', 12),
+(32, '', '20.271.137-5', 'transferir', 12),
+(33, '', '20.271.137-5', 'transferir', 12),
+(34, '', '20.271.137-5', 'transferir', 12),
+(35, '', '20.271.137-5', 'transferir', 12),
+(36, '', '20.271.137-5', 'transferir', 12),
+(37, '', '20.271.137-5', 'transferir', 12),
+(38, '', '20.271.137-5', 'transferir', 12),
+(39, '', '20.271.137-5', 'transferir', 12),
+(40, '', '20.271.137-5', 'transferir', 12),
+(41, '', '20.271.137-5', 'transferir', 12),
+(42, '', '20.271.137-5', 'transferir', 12),
+(43, '', '20.271.137-5', 'transferir', 12);
 
 -- --------------------------------------------------------
 
@@ -574,10 +627,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
-('2X1oC9pfxdNl8PC2_Xr-oICDNgGmHDgP', 1652489423, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
-('NKlkO0AZQtW3ILfFy_hQchp7P_3piJ_7', 1652489425, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
-('OX8jHvT9HMgk0MNESIEBL3ZrO873k5SP', 1652489407, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{}}'),
-('lMVFJQ5IsYsMDcM3W5qIrVjlFF_-KCJo', 1652500769, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{},\"passport\":{\"user\":\"20.271.137-5\"}}');
+('-5ZBXzAIM_llrCSLshzQ-iiYo4u-GbXl', 1652647758, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{},\"passport\":{\"user\":\"20.271.137-5\"}}'),
+('-xvw58Rl1OlCDVcetmAbLqhnv4wHESX5', 1652655316, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{},\"passport\":{\"user\":\"20.271.137-5\"}}');
 
 --
 -- Índices para tablas volcadas
@@ -667,6 +718,13 @@ ALTER TABLE `formulario_mejorar`
 --
 ALTER TABLE `formulario_mitigar`
   ADD PRIMARY KEY (`id_formulario_mitigar`),
+  ADD KEY `id_solicitud` (`id_solicitud`);
+
+--
+-- Indices de la tabla `formulario_transferir`
+--
+ALTER TABLE `formulario_transferir`
+  ADD PRIMARY KEY (`id_form_transferir`),
   ADD KEY `id_solicitud` (`id_solicitud`);
 
 --
@@ -785,6 +843,12 @@ ALTER TABLE `formulario_mitigar`
   MODIFY `id_formulario_mitigar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `formulario_transferir`
+--
+ALTER TABLE `formulario_transferir`
+  MODIFY `id_form_transferir` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT de la tabla `proyecto`
 --
 ALTER TABLE `proyecto`
@@ -800,7 +864,7 @@ ALTER TABLE `respuesta_factores`
 -- AUTO_INCREMENT de la tabla `respuesta_riesgo`
 --
 ALTER TABLE `respuesta_riesgo`
-  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de la tabla `riesgos`
@@ -877,6 +941,12 @@ ALTER TABLE `formulario_mejorar`
 --
 ALTER TABLE `formulario_mitigar`
   ADD CONSTRAINT `formulario_mitigar_ibfk_1` FOREIGN KEY (`id_solicitud`) REFERENCES `respuesta_riesgo` (`id_solicitud`);
+
+--
+-- Filtros para la tabla `formulario_transferir`
+--
+ALTER TABLE `formulario_transferir`
+  ADD CONSTRAINT `formulario_transferir_ibfk_1` FOREIGN KEY (`id_solicitud`) REFERENCES `respuesta_riesgo` (`id_solicitud`);
 
 --
 -- Filtros para la tabla `jefe_proyecto`
