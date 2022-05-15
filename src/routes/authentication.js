@@ -479,4 +479,40 @@ router.post('/formTransferir/:id_proyecto/:id_riesgo', async function(req,res){
  
   res.redirect('/perfilExpertos')
   });
+
+
+  router.post('/formEscalar/:id_proyecto/:id_riesgo', async function(req,res){
+
+    var nombre_estrategia = "escalar"
+    const rut_experto = req.user.rut;
+    const {id_proyecto} = req.params;
+    const {id_riesgo} = req.params;
+   
+    var respuesta_cambio = "";
+   
+   
+    newReply0 = {
+      respuesta_cambio,
+      rut_experto,
+      nombre_estrategia,
+      id_riesgo
+    }
+    
+    await pool.query('INSERT INTO respuesta_riesgo SET ?', newReply0);
+    var id = await pool.query('select MAX(id_solicitud) as id from respuesta_riesgo');
+    var id_solicitud = id[0].id;
+    var nuevo_encargado = req.body.nuevo_encargado;
+    var entidad_afectada = req.body.entidad_afectada;
+
+    
+    newReply1 = {
+      id_solicitud,
+      nuevo_encargado,
+      entidad_afectada,
+      rut_experto
+    }
+
+    await pool.query('INSERT INTO formulario_escalar SET ?', newReply1);
+    res.redirect('/perfilExpertos')
+  });
 module.exports = router;

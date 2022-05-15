@@ -366,7 +366,30 @@
                 </form>
             </div>
             <div name="impform" id="impescalar" style="display: none; visibility: hidden;" class="form-group">
-                <h1>FORMULARIO ESCALAR</h1>
+                <form action="/formEscalar/{{proyecto.[0].id_proyecto}}/{{riesgo.[0].id_riesgo}}" method="POST">
+                 <h4>Seleccione la entidad afectada por el riesgo:</h4>
+                        <select name="entidad_afectada" class="form-select" style="max-width: 306px;">
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="Proyecto">Proyecto</option>
+                            <option value="Organizacion de trabajo social de quintero">Organizacion de trabajo social de quintero</option>
+                            <option value="Municipalidad de quintero">Municipalidad de quintero</option>
+                            <option value="Proveedores">Proveedores</option>
+                            <option value="Interesados">Interesados</option>
+                            <option value="Inversionistas">Inversionistas</option>
+                        </select>
+                  <h4>Notificar a:</h4>
+                        <select name="nuevo_encargado" class="form-select" style="max-width: 306px;">
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="Departamento de trabajo social">Departamento de trabajo social</option>
+                            <option value="Departamento de informática">Departamento de informática</option>
+                            <option value="Departamento de adultos mayores">Departamento de adultos mayores</option>
+                             <option value="Personal de la municipalidad de quintero">Personal de la municipalidad de quintero</option>
+                        </select>
+                        <br><br>
+                     <button class="btn btn-success btn-block">
+                        Enviar
+                    </button>
+                    </form>
             </div>
 
 
