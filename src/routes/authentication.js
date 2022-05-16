@@ -170,7 +170,7 @@ router.post('/formEvitar/:id_proyecto/:id_riesgo', async function(req,res){
   if(req.files==""){
     var nombre_estrategia ="evitar" 
     var array = req.body;
-    var respuesta_cambio = req.body.respuesta_cambio;
+    var respuesta_cambio = "";
     const rut_experto = req.user.rut;
     const {id_proyecto} = req.params;
     const {id_riesgo} = req.params;
@@ -225,7 +225,7 @@ router.post('/formEvitar/:id_proyecto/:id_riesgo', async function(req,res){
   
   var nombre_estrategia ="evitar" 
   var array = req.body;
-  var respuesta_cambio = req.body.respuesta_cambio;
+  var respuesta_cambio = "";
   const rut_experto = req.user.rut;
   const {id_proyecto} = req.params;
   const {id_riesgo} = req.params;
@@ -514,5 +514,112 @@ router.post('/formTransferir/:id_proyecto/:id_riesgo', async function(req,res){
 
     await pool.query('INSERT INTO formulario_escalar SET ?', newReply1);
     res.redirect('/perfilExpertos')
+  });
+
+  router.get('/respuesta_riesgo_o/:id_proyecto/:id_riesgo', isLoggedIn, async (req, res) => {
+    const {id_proyecto} = req.params;
+    const {id_riesgo} = req.params;
+    const vinculado = await pool.query('SELECT * FROM proyecto_experto_revisa WHERE rut_experto = ? AND id_proyecto = ?', [req.user.rut, id_proyecto]);
+    if (vinculado.length == 0){
+      req.flash('message', 'Proyecto no vinculado');
+      res.redirect('/perfilExpertos');
+    }else{
+      const proyecto = await pool.query('SELECT proyecto.id_proyecto, proyecto.area_proyecto, proyecto.nombre_proyecto, cuenta.nombres, cuenta.apellidos FROM proyecto INNER JOIN cuenta on proyecto.rut_jp=cuenta.rut WHERE id_proyecto = ?;', [id_proyecto]);
+      const riesgo = await pool.query('SELECT * FROM riesgos WHERE id_riesgo = ?;', [id_riesgo]);
+      res.render('riskresponseOportunidades',{proyecto, riesgo});
+    }
+  });
+  
+  router.post('/respuesta_riesgo_o/:id_proyecto/:id_riesgo', async (req, res) => {
+    const errors = validationResult(req);
+    if (errors.length > 0) {
+      req.flash('message', errors[0].msg);
+      res.redirect('/perfilExpertos');
+    }
+    const { nombre_estrategia } = req.body; 
+    const consulta = await pool.query('insert into respuesta_riesgo (rut_experto, nombre_estrategia, id_riesgo) values (?, ?, ?);',[req.user.rut,nombre_estrategia,req.params.id_riesgo]);
+    console.log(consulta.insertId); //este contiene el id que se inserta, es decir id_solicitud en consulta.insertId
+  
+    if(nombre_estrategia == "compartir"){ //para cada caso se obtendran los atributos que son requeridos y no mÃ¡s
+      const causa_oportunidad = req.body.beneficio_obtenido_compartir
+      const tercero_encargado = req.body.tercero_encargado_compartir
+      const prima = req.body.prima_compartir
+      const share_response = await pool.query('INSERT INTO formulario_compartir (id_solicitud , beneficio_obtenido, tercero_encargado, prima) values(?,?,?,?);',[consulta.insertId, causa_oportunidad, tercero_encargado, prima])
+      res.redirect('/perfilExpertos');
+    }else if(nombre_estrategia == "explotar"){
+      const beneficio = req.body.beneficio_exp
+      const resolucion = req.body.resolucion_exp
+      console.log(resolucion);
+      if(beneficio == 'otro'){
+        tipo_beneficio = req.body.tipo_beneficio_exp
+      }else{
+        tipo_beneficio = beneficio + ' ' + req.body.tipo_beneficio_exp
+      }
+      const exploit_response = await pool.query('INSERT INTO formulario_explotar (id_solicitud, tipo_beneficio, resolucion) values (?,?,?);',[consulta.insertId,tipo_beneficio,resolucion[0]])
+      res.redirect('/perfilExpertos');
+    }else if(nombre_estrategia == "mejorar"){
+      const tipo_mejora = req.body.tipo_mejora
+      const motivo_mejorar = req.body.motivo_mejorar
+      const atencion_causa = req.body.atencion_causa_mejora
+      const improve_response = await pool.query('INSERT INTO formulario_mejorar (id_solicitud , tipo_mejora, motivo_mejorar, atencion_causa) values (?,?,?,?);',[consulta.insertId, tipo_mejora, motivo_mejorar, atencion_causa])
+      res.redirect('/perfilExpertos');
+    }else if(nombre_estrategia == "aceptar"){
+      const tipo_aceptacion = req.body.aceptacion
+      const recomendacion = req.body.resolucion_exp
+      const accept_response = await pool.query('INSERT INTO formulario_aceptar (id_solicitud, tipo_aceptacion, recomendacion) values (?,?,?);',[consulta.insertId, tipo_aceptacion, recomendacion[1]])
+      
+      if(tipo_aceptacion == 'activo'){
+        const cantidad_tiempo = req.body.cantidad_tiempo
+        const dinero = req.body.dinero      
+        const active_accept_response = await pool.query('INSERT INTO aceptar_activo (id_formulario_aceptar, cantidad_tiempo, dinero) values (?,?,?);',[accept_response.insertId, cantidad_tiempo, dinero])
+        
+      }
+      res.redirect('/perfilExpertos');
+    }else if(nombre_estrategia == "escalar"){
+    var id = await pool.query('select MAX(id_solicitud) as id from respuesta_riesgo');
+    var id_solicitud = id[0].id;
+    var nuevo_encargado = req.body.nuevo_encargado;
+    var entidad_afectada = req.body.entidad_afectada;
+    var rut_experto = req.user.rut;
+    
+    newReply1 = {
+      id_solicitud,
+      nuevo_encargado,
+      entidad_afectada,
+      rut_experto
+    }
+
+    await pool.query('INSERT INTO formulario_escalar SET ?', newReply1);
+    res.redirect('/perfilExpertos')
+  
+    }
+  
+    
+  });
+
+  router.post('/respuesta_riesgo_o1/:id_proyecto/:id_riesgo', async (req, res) => {
+    const errors = validationResult(req);
+    if (errors.length > 0) {
+      req.flash('message', errors[0].msg);
+      res.redirect('/perfilExpertos');
+    }
+    var nombre_estrategia = "aceptar"; 
+    const consulta = await pool.query('insert into respuesta_riesgo (rut_experto, nombre_estrategia, id_riesgo) values (?, ?, ?);',[req.user.rut,nombre_estrategia,req.params.id_riesgo]);
+    
+  
+    if(nombre_estrategia == "aceptar"){
+      const tipo_aceptacion = req.body.aceptacion
+      const recomendacion = req.body.resolucion_exp
+      const accept_response = await pool.query('INSERT INTO formulario_aceptar (id_solicitud, tipo_aceptacion, recomendacion) values (?,?,?);',[consulta.insertId, tipo_aceptacion, recomendacion[1]])
+      
+      if(tipo_aceptacion == 'activo'){
+        const cantidad_tiempo = req.body.cantidad_tiempo
+        const dinero = req.body.dinero      
+        const active_accept_response = await pool.query('INSERT INTO aceptar_activo (id_formulario_aceptar, cantidad_tiempo, dinero) values (?,?,?);',[accept_response.insertId, cantidad_tiempo, dinero]);
+      }
+      res.redirect('/perfilExpertos');
+    }
+  
+    
   });
 module.exports = router;

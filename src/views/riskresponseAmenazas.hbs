@@ -110,10 +110,7 @@
                 <div class="disable-select" name="impform" id="impevitar" style="display: none; visibility: hidden;"
                     align="left">
 
-                    <div id="cambio_area" class="form-group" style="display: none; visibility: hidden;">
-                        <h3 style="text-align: center;">Justificacion del cambio de estrategia</h3>
-                        <textarea name="respuesta_cambio" class="form-control" id="cambio" rows="4"></textarea>
-                    </div>
+                  
 
                     <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" id="alcance_switch"
@@ -176,7 +173,81 @@
                 </div>
             </form>
             <div name="impform" id="impaceptar" style="display: none; visibility: hidden;" class="form-group">
-                <h1>FORMULARIO ACEPTAR</h1>
+                 <form action="/respuesta_riesgo_o1/{{proyecto.[0].id_proyecto}}/{{riesgo.[0].id_riesgo}}" method="POST">
+                    <div class="form-group">
+                        {{!-- Tipo de aceptacion --}}
+                        <div class="container" style="border: 1px solid; padding-top: 1%;">
+                            <div class = "row">
+                                <div class = "col-md-4" style="font-weight: bold; font-size: 25px">
+                                    Tipo de Aceptacion
+                                </div>                                
+                                <div class="form-group rad">
+                                    <div class="estrategia row">    
+                                        <div class = "col-md-6">
+                                            <input type="radio" name="aceptacion" class="form-check-input str"
+                                                id="pas_aceptar" value="pasivo" onclick = "setActiveRisk('pasivo')">
+                                            <label class="form-check-label" for="pasivo">Pasivo</label>
+                                        </div>
+                                        <div class = "col-md-6">
+                                            <input type="radio" name="aceptacion" class="form-check-input str"
+                                                id="act_aceptar" value="activo" onclick = "setActiveRisk('activo')">
+                                            <label class="form-check-label" for="activo">Activo</label>
+                                        </div>
+                                    </div>     
+                                </div>
+
+                            </div>    
+                        </div>
+                        {{!-- Aceptacion pasiva --}}
+                        <div id = "aceptacion_activa" class="container" style="border: 1px solid; padding-top: 1%; display: none; visibility: hidden;">
+                                <div class = "col-md-6">
+                                    <div style="font-size: 20px">
+                                    Recursos dedicados al manejo de riesgo.
+                                    </div>
+                                    <br/>
+                                    <div class = "row">
+                                        <div class="col-md-4" style="font-weight: bold; font-size: 15px">
+                                            Horas:
+                                        </div>
+                                        <div class="col-md-4">
+                                            <textarea name="cantidad_tiempo" class="form-control texta" id="cantidad_tiempo"
+                                                rows="1"></textarea>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class = "row"> 
+                                        <div class="col-md-4" style="font-weight: bold; font-size: 15px">
+                                            Dinero:
+                                        </div>
+                                        <div class="col-md-4">
+                                            <textarea name="dinero" class="form-control texta" id="dinero"
+                                                rows="1"></textarea>
+                                        </div>                                        
+                                    </div>
+                                    <br/>                                     
+                                </div>                                      
+                        </div>
+                        <div class="form-group">
+                            <div class="container paddingdiv" style="border: 1px solid">
+                                <div class="row">
+                                    <div class="col-md-5" style="font-size: 20px">
+                                        Recomendaciones a tomar en cuenta del riesgo - OPCIONAL
+                                    </div>
+                                    <div class="col-md-7">
+                                        <textarea name="resolucion_exp" class="form-control texta" id="resolucion_exp"
+                                            rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>                                                
+
+                    </div>
+            <br>
+            <button class="btn btn-success btn-block">
+                        Enviar
+                    </button>
+                </form>
             </div>
             <div name="impform" id="imptransferir" style="display: none; visibility: hidden;" class="form-group">
                 <form action="/formTransferir/{{proyecto.[0].id_proyecto}}/{{riesgo.[0].id_riesgo}}" method="POST">
@@ -604,6 +675,15 @@
         } else {
             document.getElementById("persoexterna_form").style.display = "none";
             document.getElementById("persoexterna_form").style.visibility = "hidden";
+        }
+    }
+     function setActiveRisk(r) {
+        if (r == "activo") {
+            document.getElementById("aceptacion_activa").style.display = "block";
+            document.getElementById("aceptacion_activa").style.visibility = "visible";
+        } else {
+            document.getElementById("aceptacion_activa").style.display = "none";
+            document.getElementById("aceptacion_activa").style.visibility = "hidden";
         }
     }
 </script>

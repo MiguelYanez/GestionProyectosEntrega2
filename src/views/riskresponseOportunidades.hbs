@@ -1,1 +1,452 @@
-no hay nada aun aqui
+<div class="response container mx-auto">
+    <div class="card text-center">
+        <div class="card-header">
+            <h4>Información del Riesgo</h4>
+        </div>
+        <div class="card-body">
+            <div class="container text-left">
+                <div class="row border bg-info text-light font-weight-bold justify-content-center">Proyecto</div>
+                <div class="row border">
+                    <div class="col-lg">Nombre del proyecto</div>
+                    <div class="col-lg">{{proyecto.[0].nombre_proyecto}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Area</div>
+                    <div class="col-lg">{{proyecto.[0].area_proyecto}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Jefe de Proyecto</div>
+                    <div class="col-lg">{{proyecto.[0].nombres}} {{proyecto.[0].apellidos}}</div>
+                </div>
+            </div>
+            <div class="container text-left">
+                <div class="row border bg-info text-light font-weight-bold justify-content-center">Riesgo</div>
+                <div class="row border">
+                    <div class="col-lg">Nombre del riesgo</div>
+                    <div class="col-lg">{{riesgo.[0].nombre_riesgo}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Tipo de riesgo</div>
+                    <div class="col-lg">{{riesgo.[0].tipo_riesgo}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Descripción</div>
+                    <div class="col-lg">{{riesgo.[0].descripción_riesgo}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Estrategia</div>
+                    <div id="strat" class="col-lg">{{riesgo.[0].tipo_estrategia_tomada}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Impacto</div>
+                    <div class="col-lg">{{riesgo.[0].impacto_riesgo}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">A_O</div>
+                    <div class="col-lg">{{riesgo.[0].A_O}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Probabilidad</div>
+                    <div class="col-lg">{{riesgo.[0].probabilidad_riesgo}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Valoración</div>
+                    <div class="col-lg">{{riesgo.[0].valoracion_riesgos}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Magnitud</div>
+                    <div class="col-lg">{{riesgo.[0].magnitud_riesgo}}</div>
+                </div>
+                <div class="row border">
+                    <div class="col-lg">Valoración de consecuencia</div>
+                    <div class="col-lg">{{riesgo.[0].valoracion_consecuencia_riesgo}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="response container mx-auto">
+    <div class="card text-center">
+        <div class="card-header">
+            <h4>Responder a la oportunidad del Riesgo</h4>
+        </div>
+        <div class="card-body">
+            <form action="/respuesta_riesgo_o/{{proyecto.[0].id_proyecto}}/{{riesgo.[0].id_riesgo}}" method="POST">
+                <div class="container estrategia row">
+                    <div class="form-group rad">
+                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="escalar"
+                            value="escalar" onclick="formulario('escalar')">
+                        <label class="form-check-label" for="escalar">Escalar</label>
+                    </div>
+                    <div class="form-group rad">
+                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="aceptar"
+                            value="aceptar" onclick="formulario('aceptar')">
+                        <label class="form-check-label" for="aceptar">Aceptar</label>
+                    </div>
+                    <div class="form-group rad">
+                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="compartir"
+                            value="compartir" onclick="formulario('compartir')">
+                        <label class="form-check-label" for="compartir">Compartir</label>
+                    </div>
+                    <div class="form-group rad">
+                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="explotar"
+                            value="explotar" onclick="formulario('explotar')">
+                        <label class="form-check-label" for="explotar">Explotar</label>
+                    </div>
+                    <div class="form-group rad">
+                        <input type="radio" name="nombre_estrategia" class="form-check-input str" id="mejorar"
+                            value="mejorar" onclick="formulario('mejorar')">
+                        <label class="form-check-label" for="mejorar">Mejorar</label>
+                    </div>
+                    <hr />
+
+                </div>
+                <div id="f_explotar" style="display: none; visibility: hidden;">
+                    <div class="form-group">
+                        <div class="container form-group rad" style="border: 1px solid">
+                            <br />
+                            <div class="row">
+                                <div class="container estrategia row">
+                                    <div class="col-md-4  ">
+                                        <div class="form-group rad">
+                                            <input type="radio" name="beneficio_exp" class="form-check-input str"
+                                                id="aumentar_exp" value="aumentar">
+                                            <label class="form-check-label" for="aumentar">Aumentar</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="row paddingdiv">
+                                <div class="container estrategia row">
+                                    <div class="col-md-4" style="font-weight: bold; font-size: 25px">
+                                        <label>Beneficios</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group rad">
+                                            <input type="radio" name="beneficio_exp" class="form-check-input str"
+                                                id="disminuir_exp" value="disminuir">
+                                            <label class="form-check-label" for="disminuir">Disminuir</label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4  ">
+                                        <div class="form-group">
+                                            <label for="tipo_beneficio_exp">Describir en más detalles los
+                                                beneficios:</label>
+                                            <textarea name="tipo_beneficio_exp" class="form-control texta"
+                                                id="tipo_beneficio_exp" rows="4"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="w-50"></div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="container estrategia row">
+                                    <div class="col-md-4">
+
+                                        <div class="form-group rad">
+                                            <input type="radio" name="beneficio_exp" class="form-check-input str"
+                                                id="otro_exp" value="otro">
+                                            <label class="form-check-label" for="otro_exp">Otro</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="container paddingdiv" style="border: 1px solid">
+                            <div class="row">
+                                <div class="col-md-4" style="font-weight: bold; font-size: 25px">
+                                    Resolución
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea name="resolucion_exp" class="form-control texta" id="resolucion_exp"
+                                        rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="f_mejorar" style="display: none; visibility: hidden;">
+                    <div class="form-group">
+                        <div class="container form-group rad" style="border: 1px solid">
+                            <br />
+                            <div class="row">
+                                <div class="container estrategia row">
+                                    <div class="col-md-4  ">
+                                        <div class="form-group rad">
+                                            <input type="radio" name="tipo_mejora" class="form-check-input str"
+                                                id="tipo_mejora_aumentar" value="aumentar">
+                                            <label class="form-check-label" for="tipo_mejora_aumentar">Aumentar</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="row">
+                                <div class="container estrategia row">
+                                    <div class="col-md-4" style="font-weight: bold; font-size: 25px">
+                                        <label>Mejora</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group rad">
+                                            <input type="radio" name="tipo_mejora"
+                                                class="form-check-input str" id="tipo_mejora_optimizar"
+                                                value="optimizar">
+                                            <label class="form-check-label"
+                                                for="tipo_mejora_optimizar">Optimizar</label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4  ">
+                                        <div class="form-group">
+                                            <label for="motivo_mejorar">Agregar más información del motivo de la
+                                                mejora:</label>
+                                            <textarea name="motivo_mejorar" class="form-control texta"
+                                                id="motivo_mejorar" rows="4"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="w-50"></div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="container estrategia row">
+                                    <div class="col-md-4">
+
+                                        <div class="form-group rad">
+                                            <input type="radio" name="tipo_mejora" class="form-check-input str"
+                                                id="tipo_mejora_otro" value="otro">
+                                            <label class="form-check-label" for="tipo_mejora_otro">Otro</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="container paddingdiv" style="border: 1px solid">
+                            <div class="row">
+                                <div class="col-md-4" style="font-weight: bold; font-size: 25px">
+                                    Causas de oportunidad
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea name="atencion_causa_mejora" class="form-control texta"
+                                        id="atencion_causa_mejora" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="f_compartir" style="display: none; visibility: hidden;">
+                    <div class="form-group">
+                        <div class="container paddingdiv" style="border: 1px solid">
+                            <div class="row">
+                                <div class="col-md-4" style="font-weight: bold; font-size: 25px">
+                                    Causas de oportunidad
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea name="beneficio_obtenido_compartir" class="form-control texta"
+                                        id="beneficio_obtenido_compartir" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="container paddingdiv" style="border: 1px solid">
+                            <div class="row">
+                                <div class="col-md-4" style="font-weight: bold; font-size: 25px">
+                                    Tercero encargado
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea name="tercero_encargado_compartir" class="form-control texta"
+                                        id="tercero_encargado_compartir" rows="1"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="container paddingdiv" style="border: 1px solid">
+                            <div class="row">
+                                <div class="col-md-4" style="font-weight: bold; font-size: 25px">
+                                    Prima
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea name="prima_compartir" class="form-control texta" id="prima_compartir"
+                                        rows="1"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="f_aceptar" style="display: none; visibility: hidden;">
+                    <div class="form-group">
+                        {{!-- Tipo de aceptacion --}}
+                        <div class="container" style="border: 1px solid; padding-top: 1%;">
+                            <div class = "row">
+                                <div class = "col-md-4" style="font-weight: bold; font-size: 25px">
+                                    Tipo de Aceptacion
+                                </div>                                
+                                <div class="form-group rad">
+                                    <div class="estrategia row">    
+                                        <div class = "col-md-6">
+                                            <input type="radio" name="aceptacion" class="form-check-input str"
+                                                id="pas_aceptar" value="pasivo" onclick = "setActiveRisk('pasivo')">
+                                            <label class="form-check-label" for="pasivo">Pasivo</label>
+                                        </div>
+                                        <div class = "col-md-6">
+                                            <input type="radio" name="aceptacion" class="form-check-input str"
+                                                id="act_aceptar" value="activo" onclick = "setActiveRisk('activo')">
+                                            <label class="form-check-label" for="activo">Activo</label>
+                                        </div>
+                                    </div>     
+                                </div>
+
+                            </div>    
+                        </div>
+                        {{!-- Aceptacion pasiva --}}
+                        <div id = "aceptacion_activa" class="container" style="border: 1px solid; padding-top: 1%; display: none; visibility: hidden;">
+                                <div class = "col-md-6">
+                                    <div style="font-size: 20px">
+                                    Recursos dedicados al manejo de riesgo.
+                                    </div>
+                                    <br/>
+                                    <div class = "row">
+                                        <div class="col-md-4" style="font-weight: bold; font-size: 15px">
+                                            Horas:
+                                        </div>
+                                        <div class="col-md-4">
+                                            <textarea name="cantidad_tiempo" class="form-control texta" id="cantidad_tiempo"
+                                                rows="1"></textarea>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class = "row"> 
+                                        <div class="col-md-4" style="font-weight: bold; font-size: 15px">
+                                            Dinero:
+                                        </div>
+                                        <div class="col-md-4">
+                                            <textarea name="dinero" class="form-control texta" id="dinero"
+                                                rows="1"></textarea>
+                                        </div>                                        
+                                    </div>
+                                    <br/>                                     
+                                </div>                                      
+                        </div>
+                        <div class="form-group">
+                            <div class="container paddingdiv" style="border: 1px solid">
+                                <div class="row">
+                                    <div class="col-md-5" style="font-size: 20px">
+                                        Recomendaciones a tomar en cuenta del riesgo - OPCIONAL
+                                    </div>
+                                    <div class="col-md-7">
+                                        <textarea name="resolucion_exp" class="form-control texta" id="resolucion_exp"
+                                            rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>                                                
+
+                    </div>
+                </div>
+
+                 <div id="f_escalar" style="display: none; visibility: hidden;">
+                    
+                     <h4>Seleccione la entidad afectada por el riesgo:</h4>
+                        <select name="entidad_afectada" class="form-select" style="max-width: 306px;">
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="Proyecto">Proyecto</option>
+                            <option value="Organizacion de trabajo social de quintero">Organizacion de trabajo social de quintero</option>
+                            <option value="Municipalidad de quintero">Municipalidad de quintero</option>
+                            <option value="Proveedores">Proveedores</option>
+                            <option value="Interesados">Interesados</option>
+                            <option value="Inversionistas">Inversionistas</option>
+                        </select>
+                  <h4>Notificar a:</h4>
+                        <select name="nuevo_encargado" class="form-select" style="max-width: 306px;">
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="Departamento de trabajo social">Departamento de trabajo social</option>
+                            <option value="Departamento de informática">Departamento de informática</option>
+                            <option value="Departamento de adultos mayores">Departamento de adultos mayores</option>
+                             <option value="Personal de la municipalidad de quintero">Personal de la municipalidad de quintero</option>
+                        </select>
+                    
+
+                    
+                </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-success btn-block">
+                        Enviar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    var form_anterior = "";
+    function formulario(c) {
+        var form = "f_";
+        document.getElementById(form + c).style.display = "block";
+        document.getElementById(form + c).style.visibility = "visible";
+        //quiza hay que realizar validacion de datos en esos if
+        /*
+        if (c == "explotar") {
+            
+        } else if (c == "mejorar") {
+           
+        } else if (c == "compartir") {
+           
+        } else if (c == "aceptar") {
+            
+        } else if (c == "escalar") {
+            
+        }*/
+        if (form_anterior != "") {
+            document.getElementById(form + form_anterior).style.display = "none";
+            document.getElementById(form + form_anterior).style.visibility = "hidden";
+        }
+        form_anterior = c; //le asigno el nuevo formulario
+    }
+    function setActiveRisk(r) {
+        if (r == "activo") {
+            document.getElementById("aceptacion_activa").style.display = "block";
+            document.getElementById("aceptacion_activa").style.visibility = "visible";
+        } else {
+            document.getElementById("aceptacion_activa").style.display = "none";
+            document.getElementById("aceptacion_activa").style.visibility = "hidden";
+        }
+    }
+    function setEstrategia() {
+        var estrategia = document.getElementById("strat").textContent;
+        var radios = document.getElementsByClassName("str");
+        for (let i = 0; i < radios.length; i++) {
+            valor_str = radios[i].id;
+            if (valor_str == estrategia) {
+                radios[i].checked = true;
+            }
+        }
+    }
+    window.onload = setEstrategia;
+</script>
