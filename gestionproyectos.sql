@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-05-2022 a las 00:57:55
+-- Tiempo de generación: 15-05-2022 a las 17:56:33
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.1
 
@@ -289,8 +289,16 @@ CREATE TABLE `formulario_escalar` (
   `id_formulario_escalar` int(11) NOT NULL,
   `id_solicitud` int(11) NOT NULL,
   `nuevo_encargado` varchar(100) NOT NULL,
-  `entidad_afectada` varchar(200) NOT NULL
+  `entidad_afectada` varchar(200) NOT NULL,
+  `rut_experto` varchar(12) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `formulario_escalar`
+--
+
+INSERT INTO `formulario_escalar` (`id_formulario_escalar`, `id_solicitud`, `nuevo_encargado`, `entidad_afectada`, `rut_experto`) VALUES
+(1, 44, 'Departamento de trabajo social', 'Municipalidad de quintero', '20.271.137-5');
 
 -- --------------------------------------------------------
 
@@ -576,7 +584,8 @@ INSERT INTO `respuesta_riesgo` (`id_solicitud`, `respuesta_cambio`, `rut_experto
 (40, '', '20.271.137-5', 'transferir', 12),
 (41, '', '20.271.137-5', 'transferir', 12),
 (42, '', '20.271.137-5', 'transferir', 12),
-(43, '', '20.271.137-5', 'transferir', 12);
+(43, '', '20.271.137-5', 'transferir', 12),
+(44, '', '20.271.137-5', 'escalar', 12);
 
 -- --------------------------------------------------------
 
@@ -628,7 +637,7 @@ CREATE TABLE `sessions` (
 
 INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
 ('-5ZBXzAIM_llrCSLshzQ-iiYo4u-GbXl', 1652647758, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{},\"passport\":{\"user\":\"20.271.137-5\"}}'),
-('-xvw58Rl1OlCDVcetmAbLqhnv4wHESX5', 1652655316, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{},\"passport\":{\"user\":\"20.271.137-5\"}}');
+('-xvw58Rl1OlCDVcetmAbLqhnv4wHESX5', 1652716420, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{},\"passport\":{\"user\":\"20.271.137-5\"}}');
 
 --
 -- Índices para tablas volcadas
@@ -822,7 +831,7 @@ ALTER TABLE `formulario_compartir`
 -- AUTO_INCREMENT de la tabla `formulario_escalar`
 --
 ALTER TABLE `formulario_escalar`
-  MODIFY `id_formulario_escalar` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_formulario_escalar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `formulario_explotar`
@@ -864,7 +873,7 @@ ALTER TABLE `respuesta_factores`
 -- AUTO_INCREMENT de la tabla `respuesta_riesgo`
 --
 ALTER TABLE `respuesta_riesgo`
-  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT de la tabla `riesgos`
